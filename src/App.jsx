@@ -10,7 +10,7 @@ export default function Home() {
 		<Router>
 			<Routes>
 				<Route element={<PrivateRoute />}>
-					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/" element={<Dashboard />} />
 					<Route path="/consultation" element={<Consultation />} />
 					<Route path="/patients" element={<PatientList />} />
 					<Route path="/payments" element={<Payments />} />
