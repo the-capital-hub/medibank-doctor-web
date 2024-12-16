@@ -11,7 +11,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
-import ConsultationContent from "@/components/consultationContent";
+import ConsultationContent from "@/components/ConsultationContent";
 
 // Comprehensive data structure with nested views and tabs
 const consultationData = {
