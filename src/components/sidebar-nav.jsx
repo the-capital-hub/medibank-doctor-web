@@ -5,7 +5,7 @@ const items = [
 	{
 		title: "Doctor Dashboard",
 		icon: Home,
-		href: "/dashboard",
+		href: "/",
 		items: [
 			{ title: "Consultation", href: "/consultation" },
 			{ title: "List of patients", href: "/patients" },
