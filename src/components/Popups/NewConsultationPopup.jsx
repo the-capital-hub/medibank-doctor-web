@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { VitalsCard } from "./components/VitalsCard";
+import  VitalsCard  from "./components/VitalsCard";
 
 export default function DetailedConsultationDialog({ open, onOpenChange }) {
 	const [formData, setFormData] = useState({

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	Dialog,
 	DialogContent,
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function PatientSearchDialog({ open, onOpenChange }) {
+	const navigate = useNavigate();
 	const [medilogId, setMedilogId] = useState("");
 
 	const handleSubmit = (e) => {
@@ -16,6 +18,7 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 		// Handle the form submission here
 		console.log("Medilog ID submitted:", medilogId);
 		onOpenChange(false);
+		navigate(`/consultation/${medilogId}`);
 		setMedilogId("");
 	};
 

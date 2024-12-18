@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 // import { Button } from "@/components/ui/button";
 // import { X } from "lucide-react";
-import { VitalsCard } from "./components/VitalsCard";
+import  VitalsCard  from "./components/VitalsCard";
 import { MedicationTable } from "./components/MedicationTables";
 
 export default function DetailedConsultationDialog({
