@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Download } from "lucide-react";
 import VitalsCard from "./VitalsCard";
+import DetailedConsultationPopup from "./Popups/DetailedConsultationPopup";
 
 function ConsultationContent({ selectedView, activeTab, consultation }) {
+	const [selectedConsultation, setSelectedConsultation] = useState(null);
+	const handleConsultationClick = (item) => {
+		setSelectedConsultation(item);
+	};
 	const renderContent = () => {
 		// Vitals Tab
 		if (selectedView === "patientSummary" && activeTab === "vitals") {
@@ -45,10 +51,10 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 						<div className="absolute right-0 w-1/2 h-full flex items-center justify-center">
 							<Avatar className="w-full h-full rounded-none">
 								<AvatarImage
-									src={`/src/Images/BMIBoyModel.png`}
+									src={`/src/Images/BMIBOY.png`}
 									width={256}
 									height={384}
-									className="w-full h-full"
+									className="w-[60%] h-full"
 									alt="Body measurements"
 								/>
 								<AvatarFallback>N</AvatarFallback>
@@ -159,7 +165,11 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 		return (
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
 				{consultation.map((item, index) => (
-					<div key={index} className={`rounded-lg p-4 ${item.color}`}>
+					<div
+						key={index}
+						className={`rounded-lg p-4 ${item.color} cursor-pointer`}
+						onClick={() => handleConsultationClick(item)}
+					>
 						<div className="mb-2">
 							<div className="text-sm text-gray-600">Chief Complaint:</div>
 							<div className="font-medium">{item.complaint}</div>
@@ -174,7 +184,16 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 		);
 	};
 
-	return renderContent();
+	return (
+		<>
+			{renderContent()}
+			<DetailedConsultationPopup
+				open={!!selectedConsultation}
+				onOpenChange={() => setSelectedConsultation(null)}
+				consultation={selectedConsultation}
+			/>
+		</>
+	);
 }
 
 export default ConsultationContent;

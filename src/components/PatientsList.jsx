@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Eye, Pencil, Printer, Search } from "lucide-react";
+import DummyPic from "../Images/DummyPic.png";
 
 const patients = [
 	{
@@ -155,7 +156,7 @@ export default function PatientList() {
 								<TableCell>
 									<div className="flex items-center space-x-3">
 										<Avatar>
-											<AvatarImage src={patient.avatar} alt={patient.name} />
+											<AvatarImage src={DummyPic} alt={patient.name} />
 											<AvatarFallback>{patient.name.charAt(0)}</AvatarFallback>
 										</Avatar>
 										<div>

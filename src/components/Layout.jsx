@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Outlet } from "react-router-dom";
-
-import { Logo } from "../components/logo";
-import { SidebarNav } from "../components/sidebar-nav";
-import { Search } from "../components/search";
-import { UserNav } from "../components/user-nav";
+import { Logo } from "./logo";
+import { SidebarNav } from "./sidebar-nav";
+import { Search } from "./search";
+import { UserNav } from "./user-nav";
 
 function App() {
 	const [isCollapsed, setIsCollapsed] = useState(false);
@@ -35,6 +34,10 @@ function App() {
 							<Bell className="h-4 w-4" />
 							<span className="sr-only">Toggle sidebar</span>
 						</Button>
+						<div className="flex-1">
+							<h3 className="text-lg font-semibold">Welcome Back...!</h3>
+							<p className="text-sm text-muted-foreground">Get your latest updates for the last 7 days</p>
+						</div>
 						<div className="ml-auto flex items-center gap-4">
 							<Search />
 							<Button variant="ghost" size="icon">
