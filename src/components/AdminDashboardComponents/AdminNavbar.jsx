@@ -8,16 +8,15 @@ import {
 	// DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Bell } from "lucide-react";
-import { Search } from "./search";
+import { Search } from "../search";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import LogoutAlertPopup from "./Popups/LogoutAlertPopup";
-import SubscriptionPopup from "./Popups/SubscriptionPopup";
-import Avtar from "../Images/DummyPic1.png";
+import LogoutAlertPopup from "../Popups/LogoutAlertPopup";
+import Avtar from "../../Images/DummyPic1.png";
 
-export function Navbar({ isCollapsed, setIsCollapsed }) {
+export function AdminNavbar({ isCollapsed, setIsCollapsed }) {
 	const [showLogoutAlert, setShowLogoutAlert] = useState(false);
-	const [showSubscription, setShowSubscription] = useState(false);
+	// const [showSubscription, setShowSubscription] = useState(false);
 
 	const handleLogout = () => {
 		// Add your logout logic here
@@ -86,7 +85,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 												Dr. Kiran
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
-												MediLog Plus
+												Admin
 											</p>
 										</div>
 									</DropdownMenuLabel>
@@ -95,7 +94,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 										Profile
 									</DropdownMenuItem>
 									<DropdownMenuItem
-										onClick={() => setShowSubscription(true)}
+										// onClick={() => setShowSubscription(true)}
 										className="cursor-pointer hover:text-purple-600"
 									>
 										Settings
@@ -119,7 +118,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 				onOpenChange={setShowLogoutAlert}
 				onLogout={handleLogout}
 			/>
-			<SubscriptionPopup open={showSubscription} close={setShowSubscription} />
+			{/* <SubscriptionPopup open={showSubscription} close={setShowSubscription} /> */}
 		</>
 	);
 }
