@@ -144,7 +144,7 @@ export default function PatientList() {
 						<TableRow>
 							<TableHead>Name</TableHead>
 							<TableHead>Starting Date</TableHead>
-							<TableHead>Medilog ID</TableHead>
+							<TableHead>Medibank ID</TableHead>
 							<TableHead>Priority</TableHead>
 							<TableHead>Location</TableHead>
 							<TableHead>Action</TableHead>

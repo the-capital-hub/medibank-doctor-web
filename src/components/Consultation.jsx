@@ -160,7 +160,7 @@ export default function ConsultationPage() {
 							<span>User Name</span>
 						</div>
 						<div>
-							<span className="font-medium">MLID: </span>
+							<span className="font-medium">MBID: </span>
 							<span>M1234567890</span>
 						</div>
 						<div>

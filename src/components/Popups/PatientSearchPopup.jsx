@@ -37,7 +37,7 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 				</DialogHeader>
 				<form onSubmit={handleSubmit} className="space-y-6">
 					<div className="space-y-2">
-						<label className="text-sm font-medium">Medilog ID</label>
+						<label className="text-sm font-medium">Medibank ID</label>
 						<Input
 							placeholder="M12345"
 							value={medilogId}

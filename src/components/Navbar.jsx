@@ -70,7 +70,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 												Dr. Kiran
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
-												Admin
+											Medibank Plus
 											</p>
 										</div>
 									</div>
@@ -86,7 +86,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 												Dr. Kiran
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
-												MediLog Plus
+												Medibank Plus
 											</p>
 										</div>
 									</DropdownMenuLabel>

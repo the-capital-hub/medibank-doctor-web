@@ -35,10 +35,10 @@ export default function MedicoLegalDialog({ open, onOpenChange }) {
 				</DialogHeader>
 				<form onSubmit={handleSubmit} className="space-y-6">
 					<div className="relative">
-						<label className="text-sm font-medium mb-2 block">MLID</label>
+						<label className="text-sm font-medium mb-2 block">MBID</label>
 						<div className="relative">
 							<Input
-								placeholder="Search MLID"
+								placeholder="Search MBID"
 								value={mlid}
 								onChange={(e) => setMlid(e.target.value)}
 								className="pr-10"

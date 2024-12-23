@@ -150,7 +150,7 @@ export function PatientsTable() {
 							</TableHead>
 							<TableHead>Name</TableHead>
 							<TableHead>Starting Date</TableHead>
-							<TableHead>Medilog ID</TableHead>
+							<TableHead>Medibank ID</TableHead>
 							<TableHead>Plan Name</TableHead>
 							<TableHead>Location</TableHead>
 							<TableHead>Payment Status</TableHead>

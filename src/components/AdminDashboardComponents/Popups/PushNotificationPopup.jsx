@@ -88,7 +88,7 @@ export default function PushNotificationDialog({ open, onOpenChange }) {
 						</div>
 
 						<Input
-							placeholder="Enter MLID"
+							placeholder="Enter MBID"
 							value={formData.mlid}
 							onChange={(e) =>
 								setFormData((prev) => ({ ...prev, mlid: e.target.value }))

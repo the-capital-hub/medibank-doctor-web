@@ -99,13 +99,13 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 							<div className="text-sm text-gray-600">Weight</div>
 							<div className="text-xl font-semibold">72 kg</div>
 						</Card>
-						<Card className="p-6">
-							<div className="text-sm text-gray-600 mb-2">
+						<Card className="p-6" style={{ backgroundColor: "#4A4949" }}>
+							<div className="text-sm text-white mb-2">
 								Body Mass Index (BMI)
 							</div>
-							<div className="text-3xl font-semibold mb-4">24.9</div>
+							<div className="text-3xl font-semibold mb-4 text-white">24.9</div>
 							<div className="h-2 bg-gradient-to-r from-green-300 via-yellow-300 to-red-300 rounded-full mb-2" />
-							<div className="flex justify-between text-sm">
+							<div className="flex justify-between text-sm text-white">
 								<span>15</span>
 								<span>18.5</span>
 								<span>25</span>

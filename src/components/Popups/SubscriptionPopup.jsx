@@ -128,13 +128,13 @@ export default function SubscriptionPopup({ open, close }) {
 											<div className="flex items-center gap-3">
 												<div className="relative h-10 w-10">
 													<img
-														src="/placeholder.svg?height=40&width=40"
-														alt="Medilog Plus"
+														src={DummyApp}
+														alt="Medibank Plus"
 														className="object-cover"
 													/>
 												</div>
 												<div>
-													<p className="font-medium">Medilog Plus</p>
+													<p className="font-medium">Medibank Plus</p>
 													<p className="text-sm text-gray-500">
 														{payment.date}
 													</p>
