@@ -162,3 +162,7 @@
 .custom-height {
 	height: calc(100vh - 65px);
 }
+
+.sign-up-height {
+	height: calc(100vh - 32px);
+}

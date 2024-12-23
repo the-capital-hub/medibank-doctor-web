@@ -8,10 +8,20 @@ import Payments from "./components/Payments";
 import CustomerService from "./components/AdminDashboardComponents/CustomerService/CustomerService";
 import AdminDashboard from "./Pages/AdminDashboard/Dashboard";
 
+import AdminLogin from "./Pages/AuthPages/Admin/Login";
+import AdminSignup from "./Pages/AuthPages/Admin/SignUp";
+import DoctorLogin from "./Pages/AuthPages/Doctors/Login";
+import DoctorSignup from "./Pages/AuthPages/Doctors/SignUp";
+
 export default function Home() {
 	return (
 		<Router>
 			<Routes>
+				<Route path="/admin/login" element={<AdminLogin />} />
+				<Route path="/admin/signup" element={<AdminSignup />} />
+				<Route path="/doctor/login" element={<DoctorLogin />} />
+				<Route path="/doctor/signup" element={<DoctorSignup />} />
+
 				<Route element={<DoctorsLayout />}>
 					<Route path="/" element={<DoctorDashboard />} />
 					<Route path="/consultation" element={<Consultation />} />
