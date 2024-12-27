@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Download } from "lucide-react";
 import VitalsCard from "./VitalsCard";
+import DetailedConsultationPopup from "./Popups/DetailedConsultationPopup";
 
 function ConsultationContent({ selectedView, activeTab, consultation }) {
+	const [selectedConsultation, setSelectedConsultation] = useState(null);
+	const handleConsultationClick = (item) => {
+		setSelectedConsultation(item);
+	};
 	const renderContent = () => {
 		// Vitals Tab
 		if (selectedView === "patientSummary" && activeTab === "vitals") {
@@ -45,10 +51,10 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 						<div className="absolute right-0 w-1/2 h-full flex items-center justify-center">
 							<Avatar className="w-full h-full rounded-none">
 								<AvatarImage
-									src={`/src/Images/BMIBoyModel.png`}
+									src={`/src/Images/BMIBOY.png`}
 									width={256}
 									height={384}
-									className="w-full h-full"
+									className="w-[60%] h-full"
 									alt="Body measurements"
 								/>
 								<AvatarFallback>N</AvatarFallback>
@@ -93,13 +99,13 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 							<div className="text-sm text-gray-600">Weight</div>
 							<div className="text-xl font-semibold">72 kg</div>
 						</Card>
-						<Card className="p-6">
-							<div className="text-sm text-gray-600 mb-2">
+						<Card className="p-6" style={{ backgroundColor: "#4A4949" }}>
+							<div className="text-sm text-white mb-2">
 								Body Mass Index (BMI)
 							</div>
-							<div className="text-3xl font-semibold mb-4">24.9</div>
+							<div className="text-3xl font-semibold mb-4 text-white">24.9</div>
 							<div className="h-2 bg-gradient-to-r from-green-300 via-yellow-300 to-red-300 rounded-full mb-2" />
-							<div className="flex justify-between text-sm">
+							<div className="flex justify-between text-sm text-white">
 								<span>15</span>
 								<span>18.5</span>
 								<span>25</span>
@@ -159,7 +165,11 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 		return (
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
 				{consultation.map((item, index) => (
-					<div key={index} className={`rounded-lg p-4 ${item.color}`}>
+					<div
+						key={index}
+						className={`rounded-lg p-4 ${item.color} cursor-pointer`}
+						onClick={() => handleConsultationClick(item)}
+					>
 						<div className="mb-2">
 							<div className="text-sm text-gray-600">Chief Complaint:</div>
 							<div className="font-medium">{item.complaint}</div>
@@ -174,7 +184,16 @@ function ConsultationContent({ selectedView, activeTab, consultation }) {
 		);
 	};
 
-	return renderContent();
+	return (
+		<>
+			{renderContent()}
+			<DetailedConsultationPopup
+				open={!!selectedConsultation}
+				onOpenChange={() => setSelectedConsultation(null)}
+				consultation={selectedConsultation}
+			/>
+		</>
+	);
 }
 
 export default ConsultationContent;

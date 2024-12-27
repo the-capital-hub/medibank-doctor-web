@@ -11,9 +11,11 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
-import ConsultationContent from "@/components/ConsultationContent";
+import ConsultationContent from "./ConsultationContent";
+import DiagnosticTestsPopup from "./Popups/DiagnosticTestsPopup";
+import MedicationPopup from "./Popups/MedicationPopup";
+import NewConsultationPopup from "./Popups/NewConsultationPopup";
 
-// Comprehensive data structure with nested views and tabs
 const consultationData = {
 	patientSummary: {
 		diagnosis: [
@@ -122,6 +124,9 @@ const viewTabs = {
 export default function ConsultationPage() {
 	const [selectedView, setSelectedView] = useState("patientSummary");
 	const [activeTab, setActiveTab] = useState("diagnosis");
+	const [showDiagnosticTests, setShowDiagnosticTests] = useState(false);
+	const [showMedication, setShowMedication] = useState(false);
+	const [showNewConsultation, setShowNewConsultation] = useState(false);
 
 	// Handler for select change
 	const handleViewChange = (value) => {
@@ -155,7 +160,7 @@ export default function ConsultationPage() {
 							<span>User Name</span>
 						</div>
 						<div>
-							<span className="font-medium">MLID: </span>
+							<span className="font-medium">MBID: </span>
 							<span>M1234567890</span>
 						</div>
 						<div>
@@ -203,15 +208,34 @@ export default function ConsultationPage() {
 								<SelectItem value="reports">Reports</SelectItem>
 							</SelectContent>
 						</Select>
-						<Button
-							variant="default"
-							className="bg-green-500 hover:bg-green-600"
-						>
-							Add
-						</Button>
+						{selectedView === "diagnosis" ? (
+							<Button
+								variant="default"
+								className="bg-green-500 hover:bg-green-600"
+								onClick={() => setShowDiagnosticTests(true)}
+							>
+								Add Diagnosis
+							</Button>
+						) : selectedView === "reports" ? (
+							<Button
+								variant="default"
+								className="bg-green-500 hover:bg-green-600"
+							>
+								Add Report
+							</Button>
+						) : (
+							<Button
+								variant="default"
+								className="bg-green-500 hover:bg-green-600"
+								onClick={() => setShowNewConsultation(true)}
+							>
+								Add Procedure
+							</Button>
+						)}
 						<Button
 							variant="warning"
 							className="bg-yellow-500 hover:bg-yellow-600"
+							onClick={() => setShowMedication(true)}
 						>
 							Show all
 						</Button>
@@ -224,6 +248,15 @@ export default function ConsultationPage() {
 				selectedView={selectedView}
 				activeTab={activeTab}
 				consultation={currentConsultations}
+			/>
+			<DiagnosticTestsPopup
+				open={showDiagnosticTests}
+				onOpenChange={setShowDiagnosticTests}
+			/>
+			<MedicationPopup open={showMedication} onOpenChange={setShowMedication} />
+			<NewConsultationPopup
+				open={showNewConsultation}
+				onOpenChange={setShowNewConsultation}
 			/>
 		</div>
 	);

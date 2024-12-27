@@ -1,20 +1,49 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
-import Dashboard from "./Pages/Dashboard";
+import DoctorsLayout from "./components/DoctorsLayout";
+import AdminLayout from "./components/AdminDashboardComponents/AdminLayout";
+import DoctorDashboard from "./Pages/DoctorDashboard";
 import Consultation from "./components/Consultation";
 import PatientList from "./components/PatientsList";
 import Payments from "./components/Payments";
+import CustomerService from "./components/AdminDashboardComponents/CustomerService/CustomerService";
+import AdminDashboard from "./Pages/AdminDashboard/Dashboard";
+
+import AdminLogin from "./Pages/AuthPages/Admin/Login";
+import AdminSignup from "./Pages/AuthPages/Admin/SignUp";
+import DoctorLogin from "./Pages/AuthPages/Doctors/Login";
+import DoctorSignup from "./Pages/AuthPages/Doctors/SignUp";
 
 export default function Home() {
 	return (
 		<Router>
 			<Routes>
-				<Route element={<PrivateRoute />}>
-					<Route path="/" element={<Dashboard />} />
+				<Route path="/admin/login" element={<AdminLogin />} />
+				<Route path="/admin/signup" element={<AdminSignup />} />
+				<Route path="/doctor/login" element={<DoctorLogin />} />
+				<Route path="/doctor/signup" element={<DoctorSignup />} />
+
+				<Route element={<DoctorsLayout />}>
+					<Route path="/" element={<DoctorDashboard />} />
 					<Route path="/consultation" element={<Consultation />} />
-					<Route path="/patients" element={<PatientList />} />
-					<Route path="/payments" element={<Payments />} />
-					<Route path="/admin" element={<Dashboard />} />
+					<Route path="/consultation/summary" element={<Consultation />} />
+					<Route path="/consultation/:medilogId" element={<Consultation />} />
+					<Route path="/consultation/diagnosis" element={<Consultation />} />
+					<Route path="/consultation/vitals" element={<Consultation />} />
+					<Route path="/consultation/graphs" element={<Consultation />} />
+					<Route path="/consultation/procedures" element={<Consultation />} />
+					<Route path="/clinic" element={<DoctorDashboard />} />
+					<Route path="/clinic/appointments" element={<DoctorDashboard />} />
+					<Route path="/clinic/patients" element={<PatientList />} />
+					<Route path="/clinic/payments" element={<Payments />} />
+					<Route path="/clinic/support" element={<DoctorDashboard />} />
+					<Route path="/admin" element={<DoctorDashboard />} />
+				</Route>
+
+				<Route element={<AdminLayout />}>
+					<Route path="/admin/dashboard" element={<AdminDashboard />} />
+					<Route path="/admin/medico-legal" element={<AdminDashboard />} />
+					<Route path="/admin/customer-service" element={<CustomerService />} />
+					<Route path="/admin/push-notification" element={<AdminDashboard />} />
 				</Route>
 			</Routes>
 		</Router>

@@ -10,11 +10,11 @@ function Dashboard() {
 					{/* Welcome Section */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-3xl font-bold tracking-tight">Good Morning</h1>
-						<div className="flex gap-4">
+						{/* <div className="flex gap-4">
 							<Button variant="outline">
 								Get Your latest update for the last 7 days
 							</Button>
-						</div>
+						</div> */}
 					</div>
 
 					{/* Notifications */}
