@@ -26,7 +26,7 @@ export default function LogoutAlert({ open, onOpenChange, onLogout }) {
 							Cancel
 						</Button>
 						<Button
-							className="flex-1 text-base font-normal bg-purple-600 hover:bg-purple-700"
+							className="flex-1 text-base text-white font-normal bg-indigo-800 hover:bg-indigo-700"
 							onClick={onLogout}
 						>
 							Yes, Logout

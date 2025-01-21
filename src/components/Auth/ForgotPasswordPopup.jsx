@@ -45,14 +45,17 @@ export function ForgotPasswordPopup({ open, onOpenChange }) {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:max-w-md bg-white">
 				<DialogHeader>
-					<DialogTitle className="text-2xl font-bold">
+					<DialogTitle className="text-2xl font-semibold">
 						Forgot Password
 					</DialogTitle>
 				</DialogHeader>
+				<div className="my-1 mx-2 w-full">
+					<div className="h-[1.75px] bg-gradient-to-r from-white via-black to-white w-full" />
+				</div>
 				<div className="space-y-6">
 					<div className="text-center">
 						<p className="text-sm text-gray-600">
-							Please enter the code we just sent to Email
+							Please enter the code we just sent to <span className="text-purple-500 font-semibold">Email</span>
 						</p>
 						<div className="flex justify-center gap-2 my-4">
 							{verificationCode.map((digit, index) => (
@@ -124,7 +127,7 @@ export function ForgotPasswordPopup({ open, onOpenChange }) {
 							</div>
 						</div>
 
-						<Button className="w-full bg-indigo-600" size="lg">
+						<Button className="w-full text-white bg-indigo-800" size="lg">
 							Create Password
 						</Button>
 					</div>

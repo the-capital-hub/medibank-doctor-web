@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 function Dashboard() {
@@ -33,14 +33,24 @@ function Dashboard() {
 					</div>
 
 					{/* Last Activity */}
-					<Card className="bg-indigo-800 text-white text-center w-1/2 mx-auto">
-						<CardHeader>
-							<CardTitle>Your Last Activity</CardTitle>
-						</CardHeader>
-						{/* <CardContent>
-                <p>No recent activity</p>
-              </CardContent> */}
-					</Card>
+					<div className=" flex gap-5 items-center justify-center">
+						<Card className="bg-indigo-800 text-white text-center w-1/3 cursor-pointer">
+							<CardHeader>
+								<CardTitle>Consultation</CardTitle>
+							</CardHeader>
+							{/* <CardContent>
+							<p>No recent activity</p>
+						</CardContent> */}
+						</Card>
+						<Card className="bg-indigo-800 text-white text-center w-1/3 cursor-pointer">
+							<CardHeader>
+								<CardTitle>Clinic Management</CardTitle>
+							</CardHeader>
+							{/* <CardContent>
+							<p>No recent activity</p>
+						</CardContent> */}
+						</Card>
+					</div>
 				</div>
 			</main>
 		</div>

@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
+	House,
 	Stethoscope,
 	Clipboard,
 	ChevronDown,
@@ -19,6 +20,12 @@ import {
 } from "@/components/ui/collapsible";
 
 const items = [
+	{
+		title: "Home",
+		icon: House,
+		href: "/",
+		items: [],
+	},
 	{
 		title: "Consultation",
 		icon: Stethoscope,
@@ -61,10 +68,7 @@ export function Sidebar({ isCollapsed, className = "" }) {
 	}, []);
 
 	const handleRequestSubmit = useCallback((requestDetails) => {
-		// Close the dialog
 		setShowRequestDialog(false);
-
-		// Show success toast
 		toast.success("Request sent successfully!", {
 			position: "top-right",
 			autoClose: 3000,
@@ -88,92 +92,114 @@ export function Sidebar({ isCollapsed, className = "" }) {
 				<div className="flex flex-col gap-8">
 					<Logo />
 					<div className={`flex flex-col gap-4 ${className || ""}`}>
-						{items.map((item, index) => (
-							<Collapsible
-								key={index}
-								open={!isCollapsed && openSections[item.title]}
-								onOpenChange={() => !isCollapsed && toggleSection(item.title)}
-							>
-								<CollapsibleTrigger
-									className={`
-                    flex items-center gap-2 text-gray-700
-                    hover:text-purple-700 transition-colors w-full
-                    ${isCollapsed ? "justify-center" : ""}
-                    ${
-											location.pathname === item.href
-												? "text-purple-700 font-semibold"
-												: ""
-										}
-                  `}
-									onClick={() => !isCollapsed && toggleSection(item.title)}
-								>
+						{items.map((item, index) => {
+							// Special handling for Home item
+							if (item.title === "Home") {
+								return (
 									<Link
+										key={index}
 										to={item.href}
-										className="flex items-center gap-2 flex-grow"
+										className={`
+                      flex items-center gap-2 text-gray-700
+                      hover:text-purple-700 transition-colors
+                      ${isCollapsed ? "justify-center" : ""}
+                      ${
+												location.pathname === item.href
+													? "text-purple-700 font-semibold"
+													: ""
+											}
+                    `}
 									>
 										<item.icon className="h-4 w-4" />
 										{!isCollapsed && <span>{item.title}</span>}
 									</Link>
+								);
+							}
+
+							// Regular collapsible items
+							return (
+								<Collapsible
+									key={index}
+									open={!isCollapsed && openSections[item.title]}
+									onOpenChange={() => !isCollapsed && toggleSection(item.title)}
+								>
+									<CollapsibleTrigger
+										className={`
+                      flex items-center gap-2 text-gray-700
+                      hover:text-purple-700 transition-colors w-full
+                      ${isCollapsed ? "justify-center" : ""}
+                      ${
+												location.pathname === item.href
+													? "text-purple-700 font-semibold"
+													: ""
+											}
+                    `}
+										onClick={() => !isCollapsed && toggleSection(item.title)}
+									>
+										<div className="flex items-center gap-2 flex-grow">
+											<item.icon className="h-4 w-4" />
+											{!isCollapsed && <span>{item.title}</span>}
+										</div>
+
+										{!isCollapsed && item.items.length > 0 && (
+											<div>
+												{openSections[item.title] ? (
+													<ChevronDown className="h-4 w-4" />
+												) : (
+													<ChevronRight className="h-4 w-4" />
+												)}
+											</div>
+										)}
+									</CollapsibleTrigger>
 
 									{!isCollapsed && (
-										<div>
-											{openSections[item.title] ? (
-												<ChevronDown className="h-4 w-4" />
-											) : (
-												<ChevronRight className="h-4 w-4" />
-											)}
-										</div>
-									)}
-								</CollapsibleTrigger>
-
-								{!isCollapsed && (
-									<CollapsibleContent>
-										<div className="flex flex-col gap-2 pl-6 mt-2">
-											{item.items.map((subItem, subIndex) => (
-												<Link
-													key={subIndex}
-													to={subItem.href}
-													className={`
-                            text-sm text-gray-600
-                            hover:text-purple-700 transition-colors
-                            ${
-															location.pathname === subItem.href
-																? "text-purple-700 font-semibold"
-																: ""
+										<CollapsibleContent>
+											<div className="flex flex-col gap-2 pl-6 mt-2">
+												{item.items.map((subItem, subIndex) => (
+													<Link
+														key={subIndex}
+														to={subItem.href}
+														className={`
+                              text-sm text-gray-600
+                              hover:text-purple-700 transition-colors
+                              ${
+																location.pathname === subItem.href
+																	? "text-purple-700 font-semibold"
+																	: ""
+															}
+                            `}
+														onClick={
+															subItem.title === "Support"
+																? handleRequestClick
+																: subItem.title === "Patient Summary"
+																? handlePatientSearchClick
+																: undefined
 														}
-                          `}
-													onClick={
-														subItem.title === "Support"
-															? handleRequestClick
-															: subItem.title === "Patient Summary"
-															? handlePatientSearchClick
-															: undefined
-													}
-												>
-													{subItem.title}
-												</Link>
-											))}
-										</div>
-									</CollapsibleContent>
-								)}
-							</Collapsible>
-						))}
-
-						<RequestToAdminPopup
-							open={showRequestDialog}
-							onOpenChange={setShowRequestDialog}
-							onSubmit={handleRequestSubmit}
-						/>
-
-						<PatientSearchPopup
-							open={showPatientSearchPopup}
-							onOpenChange={setShowPatientSearchPopup}
-						/>
+													>
+														{subItem.title}
+													</Link>
+												))}
+											</div>
+										</CollapsibleContent>
+									)}
+								</Collapsible>
+							);
+						})}
 					</div>
 				</div>
 			</div>
 
-			{/* Toast Container */}
+			<RequestToAdminPopup
+				open={showRequestDialog}
+				onOpenChange={setShowRequestDialog}
+				onSubmit={handleRequestSubmit}
+			/>
+
+			<PatientSearchPopup
+				open={showPatientSearchPopup}
+				onOpenChange={setShowPatientSearchPopup}
+			/>
+
 			<ToastContainer />
 		</>
 	);
