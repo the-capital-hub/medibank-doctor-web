@@ -194,7 +194,7 @@ const Diagnostics = () => {
 								</div>
 								<div className="relative w-1/4 h-96">
 									<div className="absolute right-0 w-full h-full flex items-center justify-center">
-										<Avatar className="w-full h-full rounded-none">
+										{/* <Avatar className="w-full h-full rounded-none">
 											<AvatarImage
 												src={`/src/Images/BMIBOY.png`}
 												width={256}
@@ -203,7 +203,12 @@ const Diagnostics = () => {
 												alt="Body measurements"
 											/>
 											<AvatarFallback>BMI Model</AvatarFallback>
-										</Avatar>
+										</Avatar> */}
+										<img
+											src="../Images/BMIBOY.png"
+											className="w-[100%] h-full"
+											alt="BMI Model"
+										/>
 									</div>
 								</div>
 								<div className="space-y-4 w-1/3">
