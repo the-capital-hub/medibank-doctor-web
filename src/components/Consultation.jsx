@@ -196,6 +196,7 @@ export default function ConsultationPage() {
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
+							onClick={() => setShowNewConsultation(true)}
 						>
 							Diagnosis{" "}
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
@@ -204,6 +205,7 @@ export default function ConsultationPage() {
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
+							onClick={() => setShowMedication(true)}
 						>
 							Vitals & BMI{" "}
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
@@ -212,6 +214,7 @@ export default function ConsultationPage() {
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
+							onClick={() => setShowDiagnosticTests(true)}
 						>
 							Procedures{" "}
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}

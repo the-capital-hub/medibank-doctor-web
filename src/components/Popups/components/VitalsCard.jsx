@@ -131,7 +131,7 @@ const VitalsCard = ({
 						<div className="w-8 h-8 bg-teal-100 rounded flex items-center justify-center mr-3">
 							<Droplet className="w-6 h-6 text-teal-400" />
 						</div>
-						<span className="text-xs">Blood Sugar</span>
+						<span className="text-xs">Blood Pressure</span>
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="p-3">

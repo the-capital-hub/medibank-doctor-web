@@ -70,22 +70,22 @@ const Diagnostics = () => {
 					<hr />
 					<div className="grid grid-cols-4 gap-4">
 						<Button variant="contained" className="m-3  text-center">
-							Diagnosis{" "}
+							<Link to="/consultation/diagnosis">Diagnosis</Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
 						>
-							Vitals & BMI{" "}
+							<Link to="/consultation/vitals">Vitals & BMI </Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 						<Button variant="contained" className="m-3  text-center">
-							Health graphs{" "}
+							<Link to="/consultation/healthgraphs">Health graphs </Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 						<Button variant="contained" className="m-3  text-center">
-							Procedures{" "}
+							<Link to="/consultation/procedures">Procedures </Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 					</div>
@@ -149,13 +149,17 @@ const Diagnostics = () => {
 									<div className=" p-2 rounded-lg shadow-sm bg-red-50 border-red-200 border">
 										<div className="text-indigo-800 font-semibold">Weight</div>
 										<div className="font-semibold">87 Kg</div>
-										<div className="text-indigo-800 font-semibold">Last Measurement: 82 Kg</div>
+										<div className="text-indigo-800 font-semibold">
+											Last Measurement: 82 Kg
+										</div>
 										<div className="font-semibold text-xs">30 May 2024</div>
 									</div>
 
 									<div className="">
 										<div className="p-2 rounded-lg shadow-sm bg-green-50 border-green-200 border">
-											<div className="text-indigo-800 font-semibold">Weight</div>
+											<div className="text-indigo-800 font-semibold">
+												Weight
+											</div>
 											<div className="font-semibold">87 Kg</div>
 											<div className="text-indigo-800 font-semibold">
 												Last Measurement: 82 Kg
@@ -165,7 +169,9 @@ const Diagnostics = () => {
 									</div>
 									<div className="">
 										<div className="p-2 rounded-lg shadow-sm bg-green-50 border-green-200 border">
-											<div className="font-semibold text-indigo-800">Weight</div>
+											<div className="font-semibold text-indigo-800">
+												Weight
+											</div>
 											<div className="font-semibold">87 Kg</div>
 											<div className="font-semibold text-indigo-800">
 												Last Measurement: 82 Kg
@@ -175,7 +181,9 @@ const Diagnostics = () => {
 									</div>
 									<div className="">
 										<div className="bg-green-50 border-green-200 border p-2 rounded-lg shadow-sm">
-											<div className="text-indigo-800 font-semibold">Weight</div>
+											<div className="text-indigo-800 font-semibold">
+												Weight
+											</div>
 											<div className="font-semibold">87 Kg</div>
 											<div className="text-indigo-800 font-semibold">
 												Last Measurement: 82 Kg
@@ -194,7 +202,7 @@ const Diagnostics = () => {
 												className="w-[100%] h-full"
 												alt="Body measurements"
 											/>
-											<AvatarFallback>N</AvatarFallback>
+											<AvatarFallback>BMI Model</AvatarFallback>
 										</Avatar>
 									</div>
 								</div>

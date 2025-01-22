@@ -33,7 +33,7 @@ const items = [
 			{ title: "Patient Summary", href: "/consultation/summary" },
 			{ title: "Diagnosis", href: "/consultation/diagnosis" },
 			{ title: "Vitals & BMI", href: "/consultation/vitals" },
-			{ title: "Health Graphs", href: "/consultation/graphs" },
+			{ title: "Health Graphs", href: "/consultation/healthgraphs" },
 			{ title: "Procedures", href: "/consultation/procedures" },
 		],
 	},

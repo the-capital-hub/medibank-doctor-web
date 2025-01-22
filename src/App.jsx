@@ -32,7 +32,7 @@ export default function Home() {
 					<Route path="/consultation/:medilogId" element={<Consultation />} />
 					<Route path="/consultation/diagnosis" element={<Diagnosis />} />
 					<Route path="/consultation/vitals" element={<Vitals_BMI />} />
-					<Route path="/consultation/graphs" element={<Consultation />} />
+					<Route path="/consultation/healthgraphs" element={<Consultation />} />
 					<Route path="/consultation/procedures" element={<Procedures />} />
 					<Route path="/clinic" element={<DoctorDashboard />} />
 					<Route path="/clinic/appointments" element={<DoctorDashboard />} />
