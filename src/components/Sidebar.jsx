@@ -79,12 +79,17 @@ export function Sidebar({ isCollapsed, className = "" }) {
 		});
 	}, []);
 
-	const toggleSection = (sectionTitle) => {
-		setOpenSections((prev) => ({
-			...prev,
-			[sectionTitle]: !prev[sectionTitle],
-		}));
-	};
+	const toggleSection = useCallback(
+		(sectionTitle) => {
+			if (!isCollapsed) {
+				setOpenSections((prev) => ({
+					...prev,
+					[sectionTitle]: !prev[sectionTitle],
+				}));
+			}
+		},
+		[isCollapsed]
+	);
 
 	return (
 		<>
@@ -121,7 +126,7 @@ export function Sidebar({ isCollapsed, className = "" }) {
 								<Collapsible
 									key={index}
 									open={!isCollapsed && openSections[item.title]}
-									onOpenChange={() => !isCollapsed && toggleSection(item.title)}
+									onOpenChange={() => toggleSection(item.title)}
 								>
 									<CollapsibleTrigger
 										className={`
@@ -134,7 +139,6 @@ export function Sidebar({ isCollapsed, className = "" }) {
 													: ""
 											}
                     `}
-										onClick={() => !isCollapsed && toggleSection(item.title)}
 									>
 										<div className="flex items-center gap-2 flex-grow">
 											<item.icon className="h-4 w-4" />
