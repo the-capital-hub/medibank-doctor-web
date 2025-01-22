@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CirclePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,7 +16,7 @@ import ConsultationContent from "./ConsultationContent";
 import DiagnosticTestsPopup from "./Popups/DiagnosticTestsPopup";
 import MedicationPopup from "./Popups/MedicationPopup";
 import NewConsultationPopup from "./Popups/NewConsultationPopup";
-import Add_Icon from "../Images/add-icon.png";
+import Add_Icon from "../Images/Add-Icon.png";
 import VitalsCard from "./Popups/components/VitalsCard";
 
 const consultationData = {
@@ -198,21 +198,24 @@ export default function ConsultationPage() {
 							className="m-3 bg-indigo-800 text-white text-center"
 						>
 							Diagnosis{" "}
-							<img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" />
+							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
+							<CirclePlus className="inline h-4 w-4" />
 						</Button>
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
 						>
 							Vitals & BMI{" "}
-							<img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" />
+							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
+							<CirclePlus className="inline h-4 w-4" />
 						</Button>
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
 						>
 							Procedures{" "}
-							<img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" />
+							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
+							<CirclePlus className="inline h-4 w-4" />
 						</Button>
 					</div>
 
