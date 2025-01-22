@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CirclePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
 	Select,
 	SelectContent,
@@ -15,6 +16,8 @@ import ConsultationContent from "./ConsultationContent";
 import DiagnosticTestsPopup from "./Popups/DiagnosticTestsPopup";
 import MedicationPopup from "./Popups/MedicationPopup";
 import NewConsultationPopup from "./Popups/NewConsultationPopup";
+import Add_Icon from "../Images/Add-Icon.png";
+import VitalsCard from "./Popups/components/VitalsCard";
 
 const consultationData = {
 	patientSummary: {
@@ -153,16 +156,16 @@ export default function ConsultationPage() {
 				</Button>
 
 				{/* Patient Info Card */}
-				<Card className="p-4 mb-6">
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+				<Card className="p-4 pb-0 mb-2 ">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-3">
 						<div>
 							<span className="font-medium">Patient Name: </span>
 							<span>User Name</span>
 						</div>
-						<div>
+						{/* <div>
 							<span className="font-medium">MBID: </span>
 							<span>M1234567890</span>
-						</div>
+							</div> */}
 						<div>
 							<span className="font-medium">Date of Birth: </span>
 							<span>01-01-1989</span>
@@ -171,15 +174,247 @@ export default function ConsultationPage() {
 							<span className="font-medium">Gender: </span>
 							<span>Male</span>
 						</div>
+						{/* <div>
+							<span className="font-medium">Address: </span>
+							<span>Hyderabad, Telangana</span>
+							</div> */}
+					</div>
+					<hr />
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-3 pb-3">
+						<div>
+							<span className="font-medium">MID: </span>
+							<span>M1234567890</span>
+						</div>
 						<div>
 							<span className="font-medium">Address: </span>
 							<span>Hyderabad, Telangana</span>
 						</div>
 					</div>
+					<hr />
+
+					<div className="grid grid-cols-[1fr_2fr_1fr] gap-4">
+						<Button
+							variant="contained"
+							className="m-3 bg-indigo-800 text-white text-center"
+						>
+							Diagnosis{" "}
+							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
+							<CirclePlus className="inline h-4 w-4" />
+						</Button>
+						<Button
+							variant="contained"
+							className="m-3 bg-indigo-800 text-white text-center"
+						>
+							Vitals & BMI{" "}
+							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
+							<CirclePlus className="inline h-4 w-4" />
+						</Button>
+						<Button
+							variant="contained"
+							className="m-3 bg-indigo-800 text-white text-center"
+						>
+							Procedures{" "}
+							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
+							<CirclePlus className="inline h-4 w-4" />
+						</Button>
+					</div>
+
+					<hr />
+
+					<div className="grid grid-cols-[1fr_2fr_1fr] gap-4">
+						<div className=" flex flex-col justify-between">
+							<div className="flex flex-col gap-3 py-4">
+								{currentConsultations.map((item, index) => (
+									<div
+										key={index}
+										className={`rounded-lg p-4 ${item.color} cursor-pointer max-h-fit`}
+										// onClick={() => handleConsultationClick(item)}
+									>
+										<div className="mb-2">
+											<div className="text-sm text-gray-600">
+												Chief Complaint:
+											</div>
+											<div className="font-medium">{item.complaint}</div>
+										</div>
+										<div className="flex justify-between text-sm text-gray-600">
+											<span>{item.date}</span>
+											<span>{item.doctor}</span>
+										</div>
+									</div>
+								))}
+							</div>
+							<Button className="text-teal-500 w-fit mx-auto mb-5">
+								Show All
+							</Button>
+						</div>
+						<div className="grid grid-cols-2 gap-3 py-4">
+							<div className="">
+								<h2 className=" text-indigo-800 text-left mb-6">Vitals</h2>
+								<div className="flex flex-wrap gap-4">
+									<VitalsCard
+										title="Blood Sugar"
+										value="80"
+										unit="mg/dL"
+										status="Normal"
+										trend="up"
+										color="bg-orange-50"
+										width={120}
+									/>
+									<VitalsCard
+										title="Heart Rate"
+										value="98"
+										unit="bpm"
+										status="Normal"
+										trend="stable"
+										color="bg-red-50"
+										width={120}
+									/>
+									<VitalsCard
+										title="Blood Pressure"
+										value="102/72"
+										unit="mmHg"
+										status="Normal"
+										trend="down"
+										color="bg-blue-50"
+										width={120}
+									/>
+									<VitalsCard
+										title="SPO2"
+										value="102/72"
+										unit="mmHg"
+										status="Normal"
+										trend="down"
+										color="bg-blue-50"
+										width={120}
+									/>
+								</div>
+							</div>
+							{/* <hr /> */}
+							<div className="">
+								<h2 className=" text-indigo-800 text-left mb-5">
+									BMI - <span className="text-yellow-400">26.9</span>
+								</h2>
+								<div className="flex flex-col lg:flex-row gap-4 items-start">
+									<div className="relative w-full h-96">
+										<div className="absolute right-0 w-2/2 h-full flex items-center justify-center">
+											<Avatar className="w-full h-full rounded-none">
+												<AvatarImage
+													src={`/src/Images/BMIBOY.png`}
+													width={256}
+													height={384}
+													className="w-[100%] h-full"
+													alt="Body measurements"
+												/>
+												<AvatarFallback>N</AvatarFallback>
+											</Avatar>
+										</div>
+										{/* <div className="absolute left-0 top-0">
+											<div className="bg-white p-2 rounded-lg shadow-sm">
+												<div className="font-bold">Body Measurements</div>
+												<div className="font-semibold text-sm text-gray-400">
+													Last checked 2 Days Ago
+												</div>
+												<div className="font-semibold">
+													Inverted Triangle Body Shape
+												</div>
+											</div>
+										</div>
+										<div className="absolute left-0 top-1/4">
+											<div className="bg-white p-2 rounded-lg shadow-sm">
+												<div className="text-sm text-gray-600">Chest (in)</div>
+												<div className="font-semibold">44.5 ↑</div>
+											</div>
+										</div>
+										<div className="absolute left-0 top-1/2">
+											<div className="bg-white p-2 rounded-lg shadow-sm">
+												<div className="text-sm text-gray-600">Waist (in)</div>
+												<div className="font-semibold">34 ↓</div>
+											</div>
+										</div>
+										<div className="absolute left-0 top-3/4">
+											<div className="bg-white p-2 rounded-lg shadow-sm">
+												<div className="text-sm text-gray-600">Hip (in)</div>
+												<div className="font-semibold">42.5</div>
+											</div>
+										</div> */}
+									</div>
+									<div className="space-y-4 w-full">
+										<Card className="p-4">
+											<div className="text-sm text-gray-600">Height</div>
+											<div className="text-xl font-semibold">170 cm</div>
+										</Card>
+										<Card className="p-4">
+											<div className="text-sm text-gray-600">Weight</div>
+											<div className="text-xl font-semibold">72 kg</div>
+										</Card>
+										{/* <Card
+											className="p-6"
+											style={{ backgroundColor: "#4A4949" }}
+										>
+											<div className="text-sm text-white mb-2">
+												Body Mass Index (BMI)
+											</div>
+											<div className="text-3xl font-semibold mb-4 text-white">
+												24.9
+											</div>
+											<div className="h-2 bg-gradient-to-r from-green-300 via-yellow-300 to-red-300 rounded-full mb-2" />
+											<div className="flex justify-between text-sm text-white">
+												<span>15</span>
+												<span>18.5</span>
+												<span>25</span>
+												<span>30</span>
+												<span>40</span>
+											</div>
+											<div className="mt-4 inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full">
+												You&apos;re Healthy
+											</div>
+										</Card> */}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className=" flex flex-col justify-between">
+							<div className="flex flex-col gap-3 py-4">
+								{currentConsultations.map((item, index) => (
+									<div
+										key={index}
+										className={`rounded-lg p-4 ${item.color} cursor-pointer max-h-fit`}
+										// onClick={() => handleConsultationClick(item)}
+									>
+										<div className="mb-2">
+											<div className="text-sm text-gray-600">
+												Chief Complaint:
+											</div>
+											<div className="font-medium">{item.complaint}</div>
+										</div>
+										<div className="flex justify-between text-sm text-gray-600">
+											<span>{item.date}</span>
+											<span>{item.doctor}</span>
+										</div>
+									</div>
+								))}
+							</div>
+							<Button className="text-teal-500 w-fit mx-auto mb-5">
+								Show All
+							</Button>
+						</div>
+					</div>
 				</Card>
+				{/* <Card className="p-4 mb-6">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+						<div>
+							<span className="font-medium">MBID: </span>
+							<span>M1234567890</span>
+						</div>
+						<div>
+							<span className="font-medium">Address: </span>
+							<span>Hyderabad, Telangana</span>
+						</div>
+					</div>
+				</Card> */}
 
 				{/* Tabs and Actions */}
-				<div className="flex items-center justify-between mb-6">
+				{/* <div className="flex items-center justify-between mb-6">
 					<Tabs
 						value={activeTab}
 						onValueChange={setActiveTab}
@@ -240,15 +475,15 @@ export default function ConsultationPage() {
 							Show all
 						</Button>
 					</div>
-				</div>
+				</div> */}
 			</div>
 
 			{/* Consultation Content */}
-			<ConsultationContent
+			{/* <ConsultationContent
 				selectedView={selectedView}
 				activeTab={activeTab}
 				consultation={currentConsultations}
-			/>
+			/> */}
 			<DiagnosticTestsPopup
 				open={showDiagnosticTests}
 				onOpenChange={setShowDiagnosticTests}

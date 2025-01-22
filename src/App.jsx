@@ -4,6 +4,9 @@ import AdminLayout from "./components/AdminDashboardComponents/AdminLayout";
 import DoctorDashboard from "./Pages/DoctorDashboard";
 import Consultation from "./components/Consultation";
 import PatientList from "./components/PatientsList";
+import Diagnosis from "./components/Diagnostics";
+import Vitals_BMI from "./components/Vitals&BMI";
+import Procedures from "./components/Procedures";
 import Payments from "./components/Payments";
 import CustomerService from "./components/AdminDashboardComponents/CustomerService/CustomerService";
 import AdminDashboard from "./Pages/AdminDashboard/Dashboard";
@@ -27,10 +30,10 @@ export default function Home() {
 					<Route path="/consultation" element={<Consultation />} />
 					<Route path="/consultation/summary" element={<Consultation />} />
 					<Route path="/consultation/:medilogId" element={<Consultation />} />
-					<Route path="/consultation/diagnosis" element={<Consultation />} />
-					<Route path="/consultation/vitals" element={<Consultation />} />
+					<Route path="/consultation/diagnosis" element={<Diagnosis />} />
+					<Route path="/consultation/vitals" element={<Vitals_BMI />} />
 					<Route path="/consultation/graphs" element={<Consultation />} />
-					<Route path="/consultation/procedures" element={<Consultation />} />
+					<Route path="/consultation/procedures" element={<Procedures />} />
 					<Route path="/clinic" element={<DoctorDashboard />} />
 					<Route path="/clinic/appointments" element={<DoctorDashboard />} />
 					<Route path="/clinic/patients" element={<PatientList />} />

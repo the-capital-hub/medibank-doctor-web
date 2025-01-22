@@ -23,11 +23,20 @@ ChartJS.register(
 	Legend
 );
 import { HeartPulse, Syringe, Droplet } from "lucide-react";
+import SPO2 from "../../../Images/spo2-icon.png";
 
-const VitalsCard = ({ title, value, unit, status, trend, color }) => (
+const VitalsCard = ({
+	title,
+	value,
+	unit,
+	status,
+	trend,
+	color,
+	width = 100,
+}) => (
 	<>
 		{title === "Blood Sugar" && (
-			<Card className="max-w-[180px] h-auto">
+			<Card className={`w-[${width}px] h-auto shadow-lg`}>
 				<CardHeader className="p-3">
 					<CardTitle className="flex items-center">
 						<div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center mr-3">
@@ -71,7 +80,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => (
 			</Card>
 		)}
 		{title === "Heart Rate" && (
-			<Card className="max-w-[180px] h-auto">
+			<Card className={`w-[${width}px] h-auto shadow-lg`}>
 				<CardHeader className="p-3">
 					<CardTitle className="flex items-center">
 						<div className="w-8 h-8 bg-red-200 rounded flex items-center justify-center mr-3">
@@ -116,7 +125,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => (
 			</Card>
 		)}
 		{title === "Blood Pressure" && (
-			<Card className="max-w-[110px] h-auto">
+			<Card className={`w-[${width}px] h-auto shadow-lg`}>
 				<CardHeader className="p-3">
 					<CardTitle className="flex items-center">
 						<div className="w-8 h-8 bg-teal-100 rounded flex items-center justify-center mr-3">
@@ -140,6 +149,54 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => (
 										data: [100, 105, 102, 108, 104, 102],
 										borderColor: "#2dd4bf",
 										backgroundColor: "rgba(45, 212, 191, 0.1)",
+										tension: 0.4,
+									},
+								],
+							}}
+							options={{
+								responsive: true,
+								maintainAspectRatio: false,
+								plugins: { legend: { display: false } },
+								scales: {
+									x: { display: false },
+									y: { display: false, min: 95, max: 110 },
+								},
+								elements: { point: { radius: 0 } },
+							}}
+						/>
+					</div>
+				</CardContent>
+			</Card>
+		)}
+		{title === "SPO2" && (
+			<Card className={`w-[${width}px] h-auto shadow-lg`}>
+				<CardHeader className="p-3">
+					<CardTitle className="flex items-center">
+						<div className="w-8 h-8 bg-lime-100 rounded flex items-center justify-center mr-3">
+							{/* <Droplet className="w-6 h-6 text-lime-400" /> */}
+							<img src={SPO2} alt="" />
+						</div>
+						<span className="text-xs">SPO2</span>
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="p-3">
+					<div className="text-gray-500 text-xs font-bold mb-2">
+						{/* <span className="text-base text-black">102 </span>/ 72 mmhg */}
+						<span className="text-base text-black">98 % </span>
+					</div>
+					<div className="text-gray-500 text-xs">Normal</div>
+					<div className="mt-4 h-16">
+						<Line
+							data={{
+								labels: ["", "", "", "", "", ""],
+								datasets: [
+									{
+										fill: true,
+										data: [100, 105, 102, 108, 104, 102],
+										// borderColor: "#2dd4bf",
+										borderColor: "#4AB58E",
+										// backgroundColor: "rgba(45, 212, 191, 0.1)",
+										backgroundColor: "#b9e3d4",
 										tension: 0.4,
 									},
 								],

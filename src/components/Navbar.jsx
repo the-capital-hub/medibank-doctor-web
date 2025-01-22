@@ -41,9 +41,9 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 						</Button>
 						<div className="flex-1">
 							<h3 className="text-lg font-semibold">Welcome Back...!</h3>
-							<p className="text-sm text-muted-foreground">
+							{/* <p className="text-sm text-muted-foreground">
 								Get your latest updates for the last 7 days
-							</p>
+							</p> */}
 						</div>
 
 						<div className="ml-auto flex items-center gap-4">

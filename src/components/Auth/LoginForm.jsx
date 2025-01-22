@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import GoogleLogo from "../../Images/Google.png";
 import AppleLogo from "../../Images/AppleLogo.png";
 import { ForgotPasswordPopup } from "./ForgotPasswordPopup";
+import LanguageSelector from "../Popups/LanguageSearchPopup";
 
 export function LoginForm() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,13 @@ export function LoginForm() {
 	const isAdmin = location.pathname.includes("/admin");
 	const userType = isAdmin ? "Admin" : "Doctor";
 	const baseRoute = isAdmin ? "/admin" : "/doctor";
+
+	const [open, setOpen] = useState(false);
+
+	const handleLanguageSelect = (language) => {
+		console.log(`Selected language: ${language}`);
+		// Handle language change here
+	};
 
 	return (
 		<>
@@ -28,10 +36,10 @@ export function LoginForm() {
 
 					<div className="space-y-4">
 						<div className="space-y-2">
-							<Label htmlFor="email">{userType}s MLID</Label>
+							<Label htmlFor="email">{userType}&apos;s ID</Label>
 							<Input
 								id="email"
-								placeholder="medilog123@gmail.com"
+								placeholder="medibank123@gmail.com"
 								type="email"
 								required
 							/>
@@ -83,13 +91,17 @@ export function LoginForm() {
 							</Link>
 						</div>
 
+						<div className="my-3 mx-2 w-full">
+							<div className="h-[1.75px] bg-gradient-to-r from-white via-black to-white w-full" />
+						</div>
+
 						<Button className="w-full bg-indigo-600 text-white" size="lg">
 							Sign in
 						</Button>
 
 						{!isAdmin && (
 							<div className="text-center text-sm">
-								Don't have an account?{" "}
+								Don&apos;t have an account?{" "}
 								<Link
 									to={`${baseRoute}/signup`}
 									className="text-blue-600 hover:underline"
@@ -120,12 +132,20 @@ export function LoginForm() {
 								Apple
 							</Button>
 						</div>
+						<Button onClick={() => setOpen(true)}>Change Language</Button>
+						{/* <Button>Language</Button> */}
 					</div>
 				</div>
 			</div>
 			<ForgotPasswordPopup
 				open={forgotPasswordOpen}
 				onOpenChange={setForgotPasswordOpen}
+			/>
+
+			<LanguageSelector
+				open={open}
+				onOpenChange={setOpen}
+				onLanguageSelect={handleLanguageSelect}
 			/>
 		</>
 	);
