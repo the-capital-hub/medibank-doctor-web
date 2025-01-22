@@ -302,13 +302,13 @@ export default function ConsultationPage() {
 										<div className="absolute right-0 w-2/2 h-full flex items-center justify-center">
 											<Avatar className="w-full h-full rounded-none">
 												<AvatarImage
-													src={`/src/Images/BMIBOY.png`}
+													src={`/public/Images/BMIBoy.png`}
 													width={256}
 													height={384}
 													className="w-[100%] h-full"
 													alt="Body measurements"
 												/>
-												<AvatarFallback>N</AvatarFallback>
+												<AvatarFallback>BMI Model</AvatarFallback>
 											</Avatar>
 										</div>
 										{/* <div className="absolute left-0 top-0">
