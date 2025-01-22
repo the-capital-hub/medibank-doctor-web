@@ -69,21 +69,21 @@ const Diagnostics = () => {
 					<div className="grid grid-cols-4 gap-4">
 						<Button
 							variant="contained"
-							className="m-3 bg-indigo-800 text-white text-center"
+							className="m-3  bg-indigo-800 text-white  text-center"
 						>
-							Diagnosis{" "}
+							<Link to="/consultation/diagnosis">Diagnosis</Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 						<Button variant="contained" className="m-3 text-center">
-							Vitals & BMI{" "}
+							<Link to="/consultation/vitals">Vitals & BMI </Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 						<Button variant="contained" className="m-3  text-center">
-							Health graphs{" "}
+							<Link to="/consultation/healthgraphs">Health graphs </Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 						<Button variant="contained" className="m-3  text-center">
-							Procedures{" "}
+							<Link to="/consultation/procedures">Procedures </Link>
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
 						</Button>
 					</div>
