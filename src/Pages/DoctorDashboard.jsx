@@ -1,7 +1,9 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+	const navigate = useNavigate();
 	return (
 		<div className="bg-gray-50">
 			{/* Main Content */}
@@ -46,9 +48,37 @@ function Dashboard() {
 							<CardHeader>
 								<CardTitle>Clinic Management</CardTitle>
 							</CardHeader>
-							{/* <CardContent>
-							<p>No recent activity</p>
-						</CardContent> */}
+						</Card>
+
+						<Card
+							className="bg-indigo-800 text-white text-center w-1/3 cursor-pointer"
+							onClick={() => {
+								navigate("/admin/dashboard");
+							}}
+						>
+							<CardHeader>
+								<CardTitle>Admin Dashboard</CardTitle>
+							</CardHeader>
+						</Card>
+						<Card
+							className="bg-indigo-800 text-white text-center w-1/3 cursor-pointer"
+							onClick={() => {
+								navigate("/doctor/login");
+							}}
+						>
+							<CardHeader>
+								<CardTitle>Doctors login</CardTitle>
+							</CardHeader>
+						</Card>
+						<Card
+							className="bg-indigo-800 text-white text-center w-1/3 cursor-pointer"
+							onClick={() => {
+								navigate("/admin/login");
+							}}
+						>
+							<CardHeader>
+								<CardTitle>Admin login</CardTitle>
+							</CardHeader>
 						</Card>
 					</div>
 				</div>
