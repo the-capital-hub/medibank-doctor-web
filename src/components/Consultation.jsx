@@ -300,7 +300,7 @@ export default function ConsultationPage() {
 								<div className="flex flex-col lg:flex-row gap-4 items-start">
 									<div className="relative w-full h-96">
 										<div className="absolute right-0 w-2/2 h-full flex items-center justify-center">
-											<Avatar className="w-full h-full rounded-none">
+											{/* <Avatar className="w-full h-full rounded-none">
 												<AvatarImage
 													src={`/public/Images/BMIBoy.png`}
 													width={256}
@@ -309,7 +309,12 @@ export default function ConsultationPage() {
 													alt="Body measurements"
 												/>
 												<AvatarFallback>BMI Model</AvatarFallback>
-											</Avatar>
+											</Avatar> */}
+											<img
+												src="/public/Images/BMIBoy.png"
+												className="w-[100%] h-full"
+												alt="BMI Model"
+											/>
 										</div>
 										{/* <div className="absolute left-0 top-0">
 											<div className="bg-white p-2 rounded-lg shadow-sm">
