@@ -311,7 +311,7 @@ export default function ConsultationPage() {
 												<AvatarFallback>BMI Model</AvatarFallback>
 											</Avatar> */}
 											<img
-												src="/public/Images/BMIBoy.png"
+												src="../Images/BMIBOY.png"
 												className="w-[100%] h-full"
 												alt="BMI Model"
 											/>
