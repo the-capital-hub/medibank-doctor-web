@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import NewConsultationPopup from "./Popups/NewConsultationPopup";
+import Breadcrumbs from "@/components/Breadcrumbs";
+
+const breadcrumbItems = [
+	{ label: "Home", href: "/" },
+	{ label: "Consultation", href: "/consultation" },
+	{ label: "Procedures", href: "/consultation/procedures" },
+];
 
 const getRandomColorClass = () => {
 	const colors = [
@@ -27,12 +34,14 @@ const Procedures = () => {
 		<>
 			<div className="container mx-auto p-6">
 				<div className="mb-8">
-					<Button variant="ghost" className="mb-4">
-						<Link to="/">
-							<ArrowLeft className="mr-2 h-4 w-4" />
-						</Link>
-						Consultation
-					</Button>
+					<div className="flex items-center mb-4">
+						<Button variant="ghost" asChild>
+							<Link to="/">
+								<ArrowLeft className="mr-2 h-4 w-4" />
+							</Link>
+						</Button>
+						<Breadcrumbs items={breadcrumbItems} />
+					</div>
 
 					{/* Patient Info Card */}
 					<Card className="p-4 pb-0 mb-2 ">

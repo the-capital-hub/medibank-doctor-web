@@ -18,6 +18,8 @@ import MedicationPopup from "./Popups/MedicationPopup";
 import NewConsultationPopup from "./Popups/NewConsultationPopup";
 import Add_Icon from "../Images/Add-Icon.png";
 import VitalsCard from "./Popups/components/VitalsCard";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import PatientSearchPopup from "./Popups/PatientSearchPopup";
 
 const consultationData = {
 	patientSummary: {
@@ -112,6 +114,12 @@ const consultationData = {
 	},
 };
 
+const breadcrumbItems = [
+	{ label: "Home", href: "/" },
+	{ label: "Consultation", href: "/consultation" },
+	{ label: "Patient Summary", href: "/consultation/summary" },
+];
+
 // Define tabs for each view
 const viewTabs = {
 	patientSummary: [
@@ -130,6 +138,7 @@ export default function ConsultationPage() {
 	const [showDiagnosticTests, setShowDiagnosticTests] = useState(false);
 	const [showMedication, setShowMedication] = useState(false);
 	const [showNewConsultation, setShowNewConsultation] = useState(false);
+	const [showPatientSearch, setShowPatientSearch] = useState(false);
 
 	// Handler for select change
 	const handleViewChange = (value) => {
@@ -148,12 +157,23 @@ export default function ConsultationPage() {
 		<div className="container mx-auto p-6">
 			{/* Header */}
 			<div className="mb-8">
-				<Button variant="ghost" className="mb-4">
-					<Link to="/">
-						<ArrowLeft className="mr-2 h-4 w-4" />
-					</Link>
-					Consultation
-				</Button>
+				<div className="flex justify-between items-center">
+					<div className="flex items-center mb-4">
+						<Button variant="ghost" asChild>
+							<Link to="/">
+								<ArrowLeft className="mr-2 h-4 w-4" />
+							</Link>
+						</Button>
+						<Breadcrumbs items={breadcrumbItems} />
+					</div>
+					<Button
+						variant="contained"
+						className="m-3 bg-indigo-800 text-white text-center"
+						onClick={() => setShowPatientSearch(true)}
+					>
+						Patient MID
+					</Button>
+				</div>
 
 				{/* Patient Info Card */}
 				<Card className="p-4 pb-0 mb-2 ">
@@ -500,6 +520,11 @@ export default function ConsultationPage() {
 			<NewConsultationPopup
 				open={showNewConsultation}
 				onOpenChange={setShowNewConsultation}
+			/>
+
+			<PatientSearchPopup
+				open={showPatientSearch}
+				onOpenChange={setShowPatientSearch}
 			/>
 		</div>
 	);

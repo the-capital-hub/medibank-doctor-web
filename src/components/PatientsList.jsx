@@ -19,6 +19,15 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Eye, Pencil, Printer, Search } from "lucide-react";
 import DummyPic from "../Images/DummyPic.png";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { ArrowLeft, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const breadcrumbItems = [
+	{ label: "Home", href: "/" },
+	{ label: "Consultation", href: "/consultation" },
+	{ label: "Patients List", href: "/consultation/patients" },
+];
 
 const patients = [
 	{
@@ -94,8 +103,16 @@ const getPriorityColor = (priority) => {
 export default function PatientList() {
 	return (
 		<div className="container mx-auto p-6">
-			<div className="flex flex-col space-y-6">
+			<div className="flex flex-col space-y-3">
 				{/* Header */}
+				<div className="flex items-center mb-4">
+					<Button variant="ghost" asChild>
+						<Link to="/">
+							<ArrowLeft className="mr-2 h-4 w-4" />
+						</Link>
+					</Button>
+					<Breadcrumbs items={breadcrumbItems} />
+				</div>
 				<div className="flex items-center justify-between">
 					<h1 className="text-2xl font-semibold">List of Patients</h1>
 					<Select defaultValue="oneWeek" className="bg-white">
