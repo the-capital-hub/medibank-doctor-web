@@ -43,7 +43,9 @@ export default function RequestToAdminPopup({ open, onOpenChange, onSubmit }) {
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:max-w-[425px] rounded-3xl bg-white">
 				<DialogHeader className="flex flex-row items-center justify-between">
-					<DialogTitle className="text-xl font-semibold">Message</DialogTitle>
+					<DialogTitle className="text-xl font-semibold">
+						Admin / Support
+					</DialogTitle>
 				</DialogHeader>
 				<form onSubmit={handleSubmit} className="space-y-6">
 					<div className="space-y-2">

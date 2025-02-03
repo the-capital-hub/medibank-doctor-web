@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, RotateCw, X } from "lucide-react";
+import { Eye, RotateCw, X, CirclePlus, CircleArrowRight, Ban } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -106,6 +106,7 @@ export function DoctorsTable() {
 						variant="outline"
 						className="bg-purple-500 hover:bg-purple-700 text-white"
 					>
+						<CirclePlus className="inline h-4 w-4" />
 						Add Doctors
 					</Button>
 				</div>
@@ -196,13 +197,13 @@ export function DoctorsTable() {
 								<TableCell>
 									<div className="flex items-center gap-2">
 										<Button variant="ghost" size="icon">
-											<Eye className="h-4 w-4" />
+											<Eye className="h-4 w-4 text-indigo-700" />
 										</Button>
 										<Button variant="ghost" size="icon">
-											<RotateCw className="h-4 w-4" />
+											<CircleArrowRight className="h-4 w-4 text-indigo-700" />
 										</Button>
 										<Button variant="ghost" size="icon">
-											<X className="h-4 w-4" />
+											<Ban className="h-4 w-4 text-red-500" />
 										</Button>
 									</div>
 								</TableCell>

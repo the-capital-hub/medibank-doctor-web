@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye, Pencil, Printer, Search, ArrowLeft } from "lucide-react";
+import { Eye, Pencil, Printer, Search, ArrowLeft, FileDown } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Link } from "react-router-dom";
 
@@ -81,7 +81,7 @@ export default function PaymentReceipts() {
 
 				{/* Time Period Filters */}
 				<div className="flex items-center justify-between">
-					<div className="text-lg">List of Patients</div>
+					<div className="text-lg">Payments List</div>
 					<div className="flex items-center gap-4">
 						<div className="flex items-center space-x-2">
 							<Button
@@ -128,9 +128,9 @@ export default function PaymentReceipts() {
 					</div>
 
 					<div className="flex items-center space-x-4">
-						<Button className="bg-purple-600 hover:bg-purple-700">
+						{/* <Button className="bg-purple-600 hover:bg-purple-700">
 							Auto Approve
-						</Button>
+						</Button> */}
 						<div className="relative">
 							<Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
 							<Input placeholder="Search" className="pl-8 w-[250px]" />
@@ -168,7 +168,7 @@ export default function PaymentReceipts() {
 											<Eye className="h-4 w-4" />
 										</Button>
 										<Button variant="ghost" size="icon">
-											<Pencil className="h-4 w-4" />
+											<FileDown className="h-4 w-4" />
 										</Button>
 										<Button variant="ghost" size="icon">
 											<Printer className="h-4 w-4" />
