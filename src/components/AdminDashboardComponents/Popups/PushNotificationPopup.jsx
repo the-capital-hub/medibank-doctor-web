@@ -80,15 +80,17 @@ export default function PushNotificationDialog({ open, onOpenChange }) {
 									<SelectValue placeholder="Select" />
 								</SelectTrigger>
 								<SelectContent className="bg-white">
-									<SelectItem value="all">All Patients</SelectItem>
-									<SelectItem value="specific">Specific Patient</SelectItem>
-									<SelectItem value="group">Patient Group</SelectItem>
+									<SelectItem value="all">To All</SelectItem>
+									<SelectItem value="patients">Patients</SelectItem>
+									<SelectItem value="doctors">Doctors</SelectItem>
+									<SelectItem value="mlid">Specific MLID</SelectItem>
+									<SelectItem value="expiring">Plan Expiring</SelectItem>
 								</SelectContent>
 							</Select>
 						</div>
 
 						<Input
-							placeholder="Enter MBID"
+							placeholder="Enter MLID"
 							value={formData.mlid}
 							onChange={(e) =>
 								setFormData((prev) => ({ ...prev, mlid: e.target.value }))

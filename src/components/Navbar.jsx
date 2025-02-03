@@ -48,7 +48,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 
 						<div className="ml-auto flex items-center gap-4">
 							{/* Search */}
-							<Search />
+							{/* <Search /> */}
 							{/* Notifications */}
 							<Button variant="ghost" size="icon">
 								<Bell className="h-4 w-4" />

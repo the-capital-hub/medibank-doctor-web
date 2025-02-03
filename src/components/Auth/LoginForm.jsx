@@ -111,7 +111,7 @@ export function LoginForm() {
 							</div>
 						)}
 
-						<div className="relative">
+						{/* <div className="relative">
 							<div className="absolute inset-0 flex items-center">
 								<div className="w-full border-t border-gray-200" />
 							</div>
@@ -120,9 +120,9 @@ export function LoginForm() {
 									Or continue with
 								</span>
 							</div>
-						</div>
+						</div> */}
 
-						<div className="grid grid-cols-2 gap-4">
+						{/* <div className="grid grid-cols-2 gap-4">
 							<Button variant="outline" className="w-full">
 								<img src={GoogleLogo} alt="Google" className="w-5 h-5 mr-2" />
 								Google
@@ -131,8 +131,8 @@ export function LoginForm() {
 								<img src={AppleLogo} alt="Apple" className="w-5 h-5 mr-2" />
 								Apple
 							</Button>
-						</div>
-						<Button onClick={() => setOpen(true)}>Change Language</Button>
+						</div> */}
+						{/* <Button onClick={() => setOpen(true)}>Change Language</Button> */}
 						{/* <Button>Language</Button> */}
 					</div>
 				</div>

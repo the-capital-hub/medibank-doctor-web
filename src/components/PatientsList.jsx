@@ -20,7 +20,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Eye, Pencil, Printer, Search } from "lucide-react";
 import DummyPic from "../Images/DummyPic.png";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft, Plus, FileDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const breadcrumbItems = [
@@ -145,9 +145,9 @@ export default function PatientList() {
 					</div>
 
 					<div className="flex items-center space-x-4">
-						<Button className="bg-purple-600 hover:bg-purple-700">
+						{/* <Button className="bg-purple-600 hover:bg-purple-700">
 							Auto Approve
-						</Button>
+						</Button> */}
 						<div className="relative">
 							<Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
 							<Input placeholder="Search" className="pl-8 w-[250px]" />
@@ -202,7 +202,7 @@ export default function PatientList() {
 											<Eye className="h-4 w-4" />
 										</Button>
 										<Button variant="ghost" size="icon">
-											<Pencil className="h-4 w-4" />
+											<FileDown className="h-4 w-4" />
 										</Button>
 										<Button variant="ghost" size="icon">
 											<Printer className="h-4 w-4" />
