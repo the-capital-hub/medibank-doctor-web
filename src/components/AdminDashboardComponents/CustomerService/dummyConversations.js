@@ -6,6 +6,7 @@ const dummyConversations = [
 		message: "Hello, I need assistance with my order.",
 		timestamp: "01-05-2024, 05:45 Pm",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -13,7 +14,8 @@ const dummyConversations = [
 		name: "Emma Johnson",
 		message: "I have a question about my subscription.",
 		timestamp: "01-05-2024, 06:15 Pm",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -22,6 +24,7 @@ const dummyConversations = [
 		message: "Can you help me with a refund?",
 		timestamp: "01-06-2024, 09:30 Am",
 		status: "completed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -30,6 +33,7 @@ const dummyConversations = [
 		message: "I'm having trouble logging in.",
 		timestamp: "01-06-2024, 11:20 Am",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -37,7 +41,8 @@ const dummyConversations = [
 		name: "David Wilson",
 		message: "How do I update my payment method?",
 		timestamp: "01-06-2024, 02:45 Pm",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -46,6 +51,7 @@ const dummyConversations = [
 		message: "I need help with product installation.",
 		timestamp: "01-07-2024, 10:00 Am",
 		status: "completed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -54,6 +60,7 @@ const dummyConversations = [
 		message: "Can you explain the warranty policy?",
 		timestamp: "01-07-2024, 01:30 Pm",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -61,7 +68,8 @@ const dummyConversations = [
 		name: "Lisa Thomas",
 		message: "I have a suggestion for improvement.",
 		timestamp: "01-08-2024, 09:15 Am",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -70,6 +78,7 @@ const dummyConversations = [
 		message: "How do I track my order?",
 		timestamp: "01-08-2024, 11:45 Am",
 		status: "completed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -78,6 +87,7 @@ const dummyConversations = [
 		message: "I need to change my delivery address.",
 		timestamp: "01-08-2024, 03:20 Pm",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -85,7 +95,8 @@ const dummyConversations = [
 		name: "James Lee",
 		message: "Can you help me with product comparison?",
 		timestamp: "01-09-2024, 10:30 Am",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -94,6 +105,7 @@ const dummyConversations = [
 		message: "I have a question about the return policy.",
 		timestamp: "01-09-2024, 02:00 Pm",
 		status: "completed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -102,6 +114,7 @@ const dummyConversations = [
 		message: "How do I cancel my subscription?",
 		timestamp: "01-10-2024, 09:45 Am",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -109,7 +122,8 @@ const dummyConversations = [
 		name: "Linda Martin",
 		message: "I need assistance with product setup.",
 		timestamp: "01-10-2024, 11:30 Am",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -118,6 +132,7 @@ const dummyConversations = [
 		message: "Can you explain the shipping options?",
 		timestamp: "01-10-2024, 03:15 Pm",
 		status: "completed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -126,6 +141,7 @@ const dummyConversations = [
 		message: "I have a billing inquiry.",
 		timestamp: "01-11-2024, 10:00 Am",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -133,7 +149,8 @@ const dummyConversations = [
 		name: "Joseph Thompson",
 		message: "How do I reset my password?",
 		timestamp: "01-11-2024, 01:45 Pm",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -142,6 +159,7 @@ const dummyConversations = [
 		message: "I need help with product customization.",
 		timestamp: "01-12-2024, 09:30 Am",
 		status: "completed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -150,6 +168,7 @@ const dummyConversations = [
 		message: "Can you assist with account deletion?",
 		timestamp: "01-12-2024, 11:15 Am",
 		status: "closed",
+		action: "reopen",
 		avatar: `${DummyPic}`,
 	},
 	{
@@ -157,7 +176,8 @@ const dummyConversations = [
 		name: "Margaret Robinson",
 		message: "I have a question about gift cards.",
 		timestamp: "01-12-2024, 02:30 Pm",
-		status: "reopen",
+		status: "open",
+		action: "close",
 		avatar: `${DummyPic}`,
 	},
 ];

@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { X, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import {
 	Select,
 	SelectContent,
@@ -83,21 +83,23 @@ export default function PushNotificationDialog({ open, onOpenChange }) {
 									<SelectItem value="all">To All</SelectItem>
 									<SelectItem value="patients">Patients</SelectItem>
 									<SelectItem value="doctors">Doctors</SelectItem>
-									<SelectItem value="mlid">Specific MLID</SelectItem>
+									<SelectItem value="mid">Specific MID</SelectItem>
 									<SelectItem value="expiring">Plan Expiring</SelectItem>
 								</SelectContent>
 							</Select>
 						</div>
 
-						<Input
-							placeholder="Enter MLID"
-							value={formData.mlid}
-							onChange={(e) =>
-								setFormData((prev) => ({ ...prev, mlid: e.target.value }))
-							}
-						/>
+						{formData.recipient === "mid" && (
+							<Input
+								placeholder="Enter MID"
+								value={formData.mlid}
+								onChange={(e) =>
+									setFormData((prev) => ({ ...prev, mlid: e.target.value }))
+								}
+							/>
+						)}
 
-						<div className="flex flex-col items-center justify-center  rounded-lg">
+						<div className="flex flex-col items-center justify-center rounded-lg">
 							{/* p-8 border-2 border-dashed bg-gray-50 */}
 							<input
 								type="file"

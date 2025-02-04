@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Users, UserCircle } from "lucide-react";
+import { Users, UserCircle, FileUser, SquareUserRound, ArrowUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
 	Select,
@@ -75,6 +75,26 @@ export function StatsCards() {
 							</div>
 						</div>
 					</Card>
+				</div>
+
+				<div className="flex gap-4">
+					<Card className="flex items-center gap-4 border border-indigo-700 p-3 rounded-lg">
+						<SquareUserRound className="w-6 h-6 text-indigo-700" />
+						<div className="text-indigo-600">
+							Number of facilities linking these records :{" "}
+							<span className="font-bold">1500k</span>
+						</div>
+						<ArrowUp className="w-6 h-6 text-green-700" />
+					</Card>
+
+					<div className="flex items-center gap-4 border border-indigo-700 p-3 rounded-lg">
+						<SquareUserRound className="w-6 h-6 text-indigo-700" />
+						<div className="text-indigo-600">
+							Number of ABHA linked transactions :{" "}
+							<span className="font-bold">1500k</span>
+						</div>
+						<ArrowUp className="w-6 h-6 text-green-700" />
+					</div>
 				</div>
 			</div>
 			<AccessManagementPopup
