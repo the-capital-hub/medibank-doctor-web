@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
 	Search,
-	Phone,
+	// Phone,
 	Paperclip,
 	Send,
 	ChevronLeft,
@@ -87,6 +87,7 @@ export default function CustomerServicePage() {
 	const getStatusColor = (status) => {
 		const statusColors = {
 			closed: "bg-orange-100 text-orange-600",
+			close: "bg-red-100 text-red-600",
 			reopen: "bg-green-100 text-green-600",
 			completed: "bg-blue-100 text-blue-600",
 			default: "bg-gray-100 text-gray-600",
@@ -211,13 +212,22 @@ export default function CustomerServicePage() {
 											{conversation.message}
 										</p>
 
-										<Badge
-											className={`mt-2 px-2 py-0.5 text-xs font-medium rounded-full ${getStatusColor(
-												conversation.status
-											)}`}
-										>
-											{conversation.status}
-										</Badge>
+										<div className="flex justify-between items-center">
+											<Badge
+												className={`mt-2 px-2 py-0.5 text-xs font-medium rounded-full ${getStatusColor(
+													conversation.status
+												)}`}
+											>
+												{conversation.status}
+											</Badge>
+											<Badge
+												className={`mt-2 px-2 py-0.5 text-xs font-medium rounded-full ${getStatusColor(
+													conversation.action
+												)}`}
+											>
+												{conversation.action}
+											</Badge>
+										</div>
 									</div>
 								</div>
 
@@ -316,10 +326,12 @@ export default function CustomerServicePage() {
 						</div>
 					</div>
 					<div className="flex items-center gap-3">
-						<Button variant="outline">Postpone</Button>
-						<Button className="gap-2">
-							<Phone className="h-4 w-4" />
-							Call
+						<Button variant="outline" className="gap-2 hover:bg-gray-200">
+							Postpone
+						</Button>
+						<Button variant="outline" className="gap-2 hover:bg-red-200">
+							{/* <Phone className="h-4 w-4" /> */}
+							Close
 						</Button>
 					</div>
 				</div>

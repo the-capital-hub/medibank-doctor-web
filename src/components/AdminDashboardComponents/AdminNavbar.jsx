@@ -66,7 +66,7 @@ export function AdminNavbar({ isCollapsed, setIsCollapsed }) {
 										</Button>
 										<div className="flex flex-col gap-3">
 											<p className="text-sm font-medium leading-none">
-												Dr. Kiran
+												John Doe
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
 												Admin
