@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { data } from "react-router-dom";
 
 export default function MedicoLegalSMSDialog({ open, onOpenChange }) {
 	const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ export default function MedicoLegalSMSDialog({ open, onOpenChange }) {
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-[425px] rounded-3xl">
+			<DialogContent className="sm:max-w-[425px] rounded-3xl bg-white">
 				<DialogHeader className="flex flex-row items-center justify-between">
 					<DialogTitle className="text-xl font-semibold">
 						Medico Legal Interface
@@ -44,7 +45,13 @@ export default function MedicoLegalSMSDialog({ open, onOpenChange }) {
 							<Label htmlFor="director1">Director 1</Label>
 						</div>
 						<div className="flex items-center space-x-2">
-							<RadioGroupItem value="director2" id="director2" />
+							<RadioGroupItem
+								value="director2"
+								id="director2"
+								// className={({ "data-state": state }) =>
+								// 	state === "checked" ? "bg-purple-700" : ""
+								// }
+							/>
 							<Label htmlFor="director2">Director 2</Label>
 						</div>
 					</RadioGroup>

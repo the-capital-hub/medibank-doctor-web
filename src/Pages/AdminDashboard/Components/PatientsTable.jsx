@@ -1,7 +1,20 @@
 import { useState } from "react";
-import { Eye, RotateCw, X, CirclePlus, CircleArrowRight, Ban } from "lucide-react";
+import {
+	Eye,
+	RotateCw,
+	X,
+	CirclePlus,
+	CircleArrowRight,
+	Ban,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
 	Select,
 	SelectContent,
@@ -19,6 +32,8 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DummyPic from "../../../Images/DummyPic.png";
+import OnboardingDialog from "../../../components/OnboardingForm";
+
 const patients = [
 	{
 		id: 1,
@@ -85,6 +100,7 @@ const patients = [
 export function PatientsTable() {
 	const [selectedEntries, setSelectedEntries] = useState("10");
 	const [searchQuery, setSearchQuery] = useState("");
+	const [open, setOpen] = useState(false);
 
 	return (
 		<div className="space-y-4">
@@ -101,13 +117,27 @@ export function PatientsTable() {
 							<SelectItem value="one-month">One Month</SelectItem>
 						</SelectContent>
 					</Select>
-					<Button
+					<OnboardingDialog
+						userType="patient"
+						open={open}
+						onOpenChange={setOpen}
+						trigger={
+							<Button
+								variant="outline"
+								className="bg-purple-500 hover:bg-purple-700 text-white"
+							>
+								<CirclePlus className="inline h-4 w-4" />
+								Add Patient
+							</Button>
+						}
+					/>
+					{/* <Button
 						variant="outline"
 						className="bg-purple-500 hover:bg-purple-700 text-white"
 					>
 						<CirclePlus className="inline h-4 w-4" />
 						Add Patients
-					</Button>
+					</Button> */}
 				</div>
 			</div>
 
@@ -203,7 +233,7 @@ export function PatientsTable() {
 										{patient.status}
 									</span>
 								</TableCell>
-								<TableCell>
+								{/* <TableCell>
 									<div className="flex items-center gap-2">
 										<Button variant="ghost" size="icon">
 											<Eye className="h-4 w-4 text-indigo-700" />
@@ -214,6 +244,59 @@ export function PatientsTable() {
 										<Button variant="ghost" size="icon">
 											<Ban className="h-4 w-4 text-red-500" />
 										</Button>
+									</div>
+								</TableCell> */}
+								<TableCell>
+									<div className="flex items-center gap-2">
+										<TooltipProvider>
+											<Tooltip delayDuration={100}>
+												<TooltipTrigger asChild>
+													<Button variant="ghost" size="icon">
+														<Eye className="h-4 w-4 text-indigo-700" />
+													</Button>
+												</TooltipTrigger>
+												<TooltipContent
+													className="bg-purple-400 px-3 py-2 rounded-lg shadow-lg border border-gray-200 mt-2"
+													sideOffset={5}
+												>
+													<p className="text-sm text-gray-700 font-medium">
+														View Profile
+													</p>
+												</TooltipContent>
+											</Tooltip>
+
+											<Tooltip delayDuration={100}>
+												<TooltipTrigger asChild>
+													<Button variant="ghost" size="icon">
+														<CircleArrowRight className="h-4 w-4 text-indigo-700" />
+													</Button>
+												</TooltipTrigger>
+												<TooltipContent
+													className="bg-purple-400 px-3 py-2 rounded-lg shadow-lg border border-gray-200 mt-2"
+													sideOffset={5}
+												>
+													<p className="text-sm text-gray-700 font-medium">
+														Approve Profile
+													</p>
+												</TooltipContent>
+											</Tooltip>
+
+											<Tooltip delayDuration={100}>
+												<TooltipTrigger asChild>
+													<Button variant="ghost" size="icon">
+														<Ban className="h-4 w-4 text-red-500" />
+													</Button>
+												</TooltipTrigger>
+												<TooltipContent
+													className="bg-purple-400 px-3 py-2 rounded-lg shadow-lg border border-gray-200 mt-2"
+													sideOffset={5}
+												>
+													<p className="text-sm text-gray-700 font-medium">
+														Block Profile
+													</p>
+												</TooltipContent>
+											</Tooltip>
+										</TooltipProvider>
 									</div>
 								</TableCell>
 							</TableRow>

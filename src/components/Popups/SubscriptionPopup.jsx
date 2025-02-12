@@ -188,7 +188,7 @@ export default function SubscriptionPopup({ open, close }) {
 										}`}
 										onClick={() => setPlanType("single")}
 									>
-										Single
+										Basic
 									</Button>
 									<Button
 										variant={planType === "family" ? "default" : "secondary"}
@@ -197,7 +197,7 @@ export default function SubscriptionPopup({ open, close }) {
 										}`}
 										onClick={() => setPlanType("family")}
 									>
-										Family
+										Pro
 									</Button>
 								</div>
 
