@@ -5,6 +5,13 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import {
 	Search,
 	// Phone,
 	Paperclip,
@@ -333,6 +340,23 @@ export default function CustomerServicePage() {
 							{/* <Phone className="h-4 w-4" /> */}
 							Close
 						</Button>
+						<Select
+							// value={formData.recipient}
+							// onValueChange={(value) =>
+							// 	setFormData((prev) => ({ ...prev, recipient: value }))
+							// }
+						>
+							<SelectTrigger>
+								<SelectValue placeholder="Status" className="w-24 text-black font-bold" />
+							</SelectTrigger>
+							<SelectContent className="bg-white">
+								<SelectItem value="open">Open</SelectItem>
+								<SelectItem value="close">Close</SelectItem>
+								<SelectItem value="completed">Completed</SelectItem>
+								<SelectItem value="reopen">Reopen</SelectItem>
+								<SelectItem value="expiring">Plan Expiring</SelectItem>
+							</SelectContent>
+						</Select>
 					</div>
 				</div>
 

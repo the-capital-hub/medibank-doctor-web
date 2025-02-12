@@ -47,7 +47,7 @@ export function AdminNavbar({ isCollapsed, setIsCollapsed }) {
 
 						<div className="ml-auto flex items-center gap-4">
 							{/* Search */}
-							<Search />
+							{/* <Search /> */}
 							{/* Notifications */}
 							<Button variant="ghost" size="icon">
 								<Bell className="h-4 w-4" />
@@ -82,7 +82,7 @@ export function AdminNavbar({ isCollapsed, setIsCollapsed }) {
 									<DropdownMenuLabel className="font-normal">
 										<div className="flex flex-col space-y-1">
 											<p className="text-sm font-medium leading-none">
-												Dr. Kiran
+												John Doe
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
 												Admin
