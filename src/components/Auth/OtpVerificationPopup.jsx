@@ -23,10 +23,9 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 			return;
 		}
 
-		// console.log("Form Data:", formData);
-		// console.log("Mobile OTP:", mobileOTP);
-		// console.log("Email OTP:", emailOTP);
-    console.log()
+		console.log("Form Data:", formData);
+		console.log("Mobile OTP:", mobileOTP);
+		console.log("Email OTP:", emailOTP);
 		onClose();
 	};
 
