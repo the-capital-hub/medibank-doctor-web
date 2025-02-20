@@ -12,11 +12,13 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import OTPVerificationPopup from "./OtpVerificationPopup";
 
 export function SignupForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [imagePreview, setImagePreview] = useState(null);
+	const [imageFile, setImageFile] = useState(null);
 	const [qualifications, setQualifications] = useState([
 		{
 			id: 1,
@@ -27,6 +29,8 @@ export function SignupForm() {
 			state: "",
 		},
 	]);
+	const [showOTPDialog, setShowOTPDialog] = useState(false);
+	const [formData, setFormData] = useState({});
 
 	const location = useLocation();
 	const isAdmin = location.pathname.includes("/admin");
@@ -35,6 +39,7 @@ export function SignupForm() {
 	const handleImageUpload = (event) => {
 		const file = event.target.files[0];
 		if (file) {
+			setImageFile(file);
 			const reader = new FileReader();
 			reader.onloadend = () => {
 				setImagePreview(reader.result);
@@ -182,13 +187,44 @@ export function SignupForm() {
 		</div>
 	);
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		const formData = {
+			profileImage: imageFile,
+			fullName: e.target.fullName.value,
+			dateOfBirth: e.target.dob.value,
+			email: e.target.email.value,
+			licenseId: e.target.licenseId.value,
+			mobileNumber: e.target.mobile.value,
+			emergencyContact: e.target.emergency.value,
+			qualifications: qualifications,
+			password: e.target.password.value,
+			confirmPassword: e.target.confirmPassword.value,
+			termsAccepted: e.target.terms.checked,
+		};
+
+		// Log form data to console
+		console.log("Form Data:", formData);
+
+		// Validate passwords match
+		if (formData.password !== formData.confirmPassword) {
+			alert("Passwords do not match!");
+			return;
+		}
+
+		// Set form data and show OTP dialog
+		setFormData(formData);
+		setShowOTPDialog(true);
+	};
+
 	return (
 		<>
 			<div className="p-6 bg-white w-full h-dvh hide-scrollbar overflow-y-scroll">
 				<div className="space-y-6">
 					<h2 className="text-2xl font-bold">Create Account</h2>
 
-					<div className="space-y-4">
+					<form onSubmit={handleSubmit} className="space-y-4">
 						<div className="flex justify-start">
 							<div className="relative">
 								<div className="w-28 h-28 rounded-lg border-2 border-solid border-gray-300 flex items-center justify-center overflow-hidden">
@@ -336,17 +372,21 @@ export function SignupForm() {
 							<Checkbox id="terms" required />
 							<label htmlFor="terms" className="text-sm text-gray-600">
 								By signing up you agree to our{" "}
-								<Link href="/terms" className="text-blue-600 hover:underline">
+								<Link to="/terms" className="text-blue-600 hover:underline">
 									Terms & Conditions
 								</Link>{" "}
 								and{" "}
-								<Link href="/privacy" className="text-blue-600 hover:underline">
+								<Link to="/privacy" className="text-blue-600 hover:underline">
 									Privacy Policy
 								</Link>
 							</label>
 						</div>
 
-						<Button className="w-full bg-indigo-600 text-white" size="lg">
+						<Button
+							type="submit"
+							className="w-full bg-indigo-600 text-white"
+							size="lg"
+						>
 							Create Account
 						</Button>
 
@@ -359,9 +399,15 @@ export function SignupForm() {
 								Sign in
 							</Link>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
+
+			<OTPVerificationPopup
+				isOpen={showOTPDialog}
+				onClose={() => setShowOTPDialog(false)}
+				formData={formData}
+			/>
 		</>
 	);
 }
