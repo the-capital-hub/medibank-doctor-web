@@ -12,21 +12,56 @@ import {
 	InputOTPGroup,
 	InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { gql, useMutation } from "@apollo/client";
+import { toast } from "react-toastify";
+const verifyOtp = gql`
+	mutation VerifyAndRegisterUser($EmailID: String!, $emailOtp: String!, $mobile_num: String!, $mobileOtp: String!) {
+		verifyAndRegisterUser(EmailID: $EmailID, emailOtp: $emailOtp, mobile_num: $mobile_num, mobileOtp: $mobileOtp) {
+			status
+			data
+			message
+		}
+	}
+`;
 
 export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
+	
 	const [mobileOTP, setMobileOTP] = useState("");
 	const [emailOTP, setEmailOTP] = useState("");
+	const [verifyAndRegisterUser, { loading }] = useMutation(verifyOtp,{
+		onCompleted: (data) => {
+			if (data && data.verifyAndRegisterUser) {
+			  toast(data.verifyAndRegisterUser.message);
+			  onClose();
+			}
+		}
+	});
 
-	const handleVerify = () => {
+	const handleVerify = async (e) => {
+		e.preventDefault();
 		if (!mobileOTP || mobileOTP.length !== 6) {
-			alert("Please enter a valid mobile OTP");
+			toast.error("Please enter a valid mobile OTP");
 			return;
 		}
 
-		console.log("Form Data:", formData);
-		console.log("Mobile OTP:", mobileOTP);
-		console.log("Email OTP:", emailOTP);
-		onClose();
+		try {
+			const result = await verifyAndRegisterUser({
+				variables: {
+					EmailID: formData.email,
+					emailOtp: emailOTP,
+					mobile_num: formData.mobileNumber,
+					mobileOtp: mobileOTP
+				}
+			});
+
+			if (result.data.verifyAndRegisterUser.status === "success") {
+				
+				// You might want to redirect here
+			}
+		} catch (error) {
+			toast("Error verifying OTP: " + error.message);
+			console.error("Mutation error:", error);
+		}
 	};
 
 	return (
@@ -66,14 +101,11 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 								value={mobileOTP}
 								onChange={(value) => setMobileOTP(value)}
 							>
-								<InputOTPGroup>
-									<InputOTPSlot index={0} />
-									<InputOTPSlot index={1} />
-									<InputOTPSlot index={2} />
-									<InputOTPSlot index={3} />
-									<InputOTPSlot index={4} />
-									<InputOTPSlot index={5} />
-								</InputOTPGroup>
+						    <InputOTPGroup>
+                  {[...Array(6)].map((_, i) => (
+                    <InputOTPSlot key={i} index={i} />
+                  ))}
+                </InputOTPGroup>
 							</InputOTP>
 							<div className="flex justify-between text-sm">
 								<button
@@ -102,14 +134,11 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 								value={emailOTP}
 								onChange={(value) => setEmailOTP(value)}
 							>
-								<InputOTPGroup>
-									<InputOTPSlot index={0} />
-									<InputOTPSlot index={1} />
-									<InputOTPSlot index={2} />
-									<InputOTPSlot index={3} />
-									<InputOTPSlot index={4} />
-									<InputOTPSlot index={5} />
-								</InputOTPGroup>
+								 <InputOTPGroup>
+                  {[...Array(6)].map((_, i) => (
+                    <InputOTPSlot key={i} index={i} />
+                  ))}
+                </InputOTPGroup>
 							</InputOTP>
 							{formData?.email && (
 								<div className="flex justify-between text-sm">
@@ -137,7 +166,8 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 							className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
 							onClick={handleVerify}
 						>
-							Verify
+							    {loading ? "Verifying OTP...": "Verify OTP"}
+
 						</Button>
 					</div>
 				</div>

@@ -9,25 +9,76 @@ import GoogleLogo from "../../Images/Google.png";
 import AppleLogo from "../../Images/AppleLogo.png";
 import { ForgotPasswordPopup } from "./ForgotPasswordPopup";
 import LanguageSelector from "../Popups/LanguageSearchPopup";
+import { toast } from "react-toastify";
+import { gql, useMutation } from "@apollo/client";
+
+const Login = gql`
+	mutation Login($EmailOrMobile: String!, $Password: String!) {
+		login(EmailOrMobile: $EmailOrMobile, Password: $Password) {
+			status
+			message
+			data
+		}
+	}
+`;
 
 export function LoginForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
+	const [formData, setFormData] = useState({
+		EmailOrMobile: "",
+		Password: "",
+	});
 	const location = useLocation();
 	const isAdmin = location.pathname.includes("/admin");
 	const userType = isAdmin ? "Admin" : "Doctor";
 	const baseRoute = isAdmin ? "/admin" : "/doctor";
 
 	const [open, setOpen] = useState(false);
-
+	const [login, { loading }] = useMutation(Login, {
+		onCompleted: (data) => {
+		  console.log("Login response:", data); // Add this to debug
+		  if (data && data.login) {
+			toast(data.login.message || "Login successful!");
+			// Optional: Add navigation here
+			// navigate('/dashboard');
+		  }
+		  else{
+			toast.error(data.login.message || "Login failed");
+		  }
+		},
+		onError: (error) => {
+		  console.error("Login error:", error);
+		  toast.error(error.message || "Login failed");
+		}
+	  });
 	const handleLanguageSelect = (language) => {
 		console.log(`Selected language: ${language}`);
 		// Handle language change here
 	};
 
+	const onInputChange = (e) => {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const variables = {
+			EmailOrMobile: formData.EmailOrMobile,
+			Password: formData.Password,
+		}
+		
+		 await login({ variables });
+		
+		
+	};
+
 	return (
 		<>
-			<div className="p-8 bg-white rounded-lg w-full max-w-md">
+			<form onSubmit={handleSubmit} className="p-8 bg-white rounded-lg w-full max-w-md">
 				<div className="space-y-6">
 					<div>
 						<h2 className="text-2xl font-bold">Sign In</h2>
@@ -36,11 +87,14 @@ export function LoginForm() {
 
 					<div className="space-y-4">
 						<div className="space-y-2">
-							<Label htmlFor="email">{userType}&apos;s ID</Label>
+							<Label htmlFor="EmailOrMobile">{userType}&apos;s ID</Label>
 							<Input
-								id="email"
+								id="EmailOrMobile"
 								placeholder="medibank123@gmail.com"
-								type="email"
+								type="text"
+								name="EmailOrMobile"
+								value={formData.EmailOrMobile}
+								onChange={onInputChange}
 								required
 							/>
 						</div>
@@ -53,6 +107,9 @@ export function LoginForm() {
 									type={showPassword ? "text" : "password"}
 									placeholder="Enter Password"
 									required
+									name="Password"
+									value={formData.Password}
+									onChange={onInputChange}
 								/>
 								<Button
 									type="button"
@@ -95,8 +152,8 @@ export function LoginForm() {
 							<div className="h-[1.75px] bg-gradient-to-r from-white via-black to-white w-full" />
 						</div>
 
-						<Button className="w-full bg-indigo-600 text-white" size="lg">
-							Sign in
+						<Button className="w-full bg-indigo-600 text-white" size="lg" disabled={loading}>
+							{loading ? "Signing in..." : "Sign in"}
 						</Button>
 
 						{!isAdmin && (
@@ -136,7 +193,7 @@ export function LoginForm() {
 						{/* <Button>Language</Button> */}
 					</div>
 				</div>
-			</div>
+			</form>
 			<ForgotPasswordPopup
 				open={forgotPasswordOpen}
 				onOpenChange={setForgotPasswordOpen}
