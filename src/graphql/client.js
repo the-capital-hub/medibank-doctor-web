@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink,} from '@apollo/client';
 const token = localStorage.getItem('auth-token');
 const httpLink = createHttpLink({
-  uri: 'http://ec2-3-94-100-11.compute-1.amazonaws.com:4000/graphql', // Replace with your actual GraphQL endpoint
+  uri: 'https://ec2-3-94-100-11.compute-1.amazonaws.com:4000/graphql', // Replace with your actual GraphQL endpoint
   credentials: 'same-origin', // If you need to send cookies
   headers: {
     'Authorization': `Bearer ${token}`, // Add any necessary auth tokens
