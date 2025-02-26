@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/input-otp";
 import { gql, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {  setUser } from "@/Redux/authSlice";
 const verifyOtp = gql`
 	mutation VerifyAndRegisterUser($EmailID: String!, $emailOtp: String!, $mobile_num: String!, $mobileOtp: String!) {
 		verifyAndRegisterUser(EmailID: $EmailID, emailOtp: $emailOtp, mobile_num: $mobile_num, mobileOtp: $mobileOtp) {
@@ -25,7 +27,7 @@ const verifyOtp = gql`
 `;
 
 export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
-	
+	const dispatch = useDispatch();
 	const [mobileOTP, setMobileOTP] = useState("");
 	const [emailOTP, setEmailOTP] = useState("");
 	const [verifyAndRegisterUser, { loading }] = useMutation(verifyOtp,{
@@ -33,6 +35,8 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 			if (data && data.verifyAndRegisterUser) {
 			  toast(data.verifyAndRegisterUser.message);
 			  onClose();
+			  dispatch(setUser(data.verifyAndRegisterUser.data));
+			  navigate("/");
 			}
 		}
 	});

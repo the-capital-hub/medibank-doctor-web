@@ -23,8 +23,11 @@ ChartJS.register(
 	Legend
 );
 import { HeartPulse, Syringe, Droplet } from "lucide-react";
+import { useSelector } from "react-redux";
 
-const VitalsCard = ({ title, value, unit, status, trend, color }) => (
+const VitalsCard = ({ title, value, unit, status, trend, color }) => {
+	const {patientDetails} = useSelector((state) => state.patientDetails?.data);
+	return (
 	<>
 		{title === "Blood Sugar" && (
 			<Card className="max-w-[180px] h-auto">
@@ -38,7 +41,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => (
 				</CardHeader>
 				<CardContent className="p-4">
 					<div className=" font-bold mb-2 text-gray-500">
-						<span className="text-3xl text-black">80</span> mg/dL
+						<span className="text-3xl text-black">{patientDetails?.medicalRecords?.appointments?.[0]?.bloodSugar}</span> mg/dL
 					</div>
 					<div className="text-gray-500">Normal</div>
 					<div className="mt-4 h-16">
@@ -82,7 +85,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => (
 				</CardHeader>
 				<CardContent className="p-4">
 					<div className="font-bold mb-2 text-gray-500">
-						<span className="text-3xl text-black">98 </span>
+						<span className="text-3xl text-black">{patientDetails?.medicalRecords?.appointments?.[0]?.heartRate||"N/A"}</span>
 						bpm
 					</div>
 					<div className="text-gray-500">Normal</div>
@@ -160,6 +163,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => (
 			</Card>
 		)}
 	</>
-);
+	);
+};
 
 export default VitalsCard;

@@ -14,11 +14,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import LogoutAlertPopup from "./Popups/LogoutAlertPopup";
 import SubscriptionPopup from "./Popups/SubscriptionPopup";
 import Avtar from "../Images/DummyPic1.png";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export function Navbar({ isCollapsed, setIsCollapsed }) {
 	const [showLogoutAlert, setShowLogoutAlert] = useState(false);
+	const navigate = useNavigate();
 	const [showSubscription, setShowSubscription] = useState(false);
-
+	const  user  = useSelector((state) => state.auth.user || {});
 	const handleLogout = () => {
 		// Add your logout logic here
 		console.log("Logging out...");
@@ -39,7 +41,17 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 							<Bell className="h-4 w-4" />
 							<span className="sr-only">Toggle sidebar</span>
 						</Button>
-						<div className="flex-1">
+						
+						{!user ? (
+
+						<div className="flex-1 flex justify-end">
+							<Button onClick={() => navigate("/doctor/login")} className="bg-indigo-800 rounded-lg hover:bg-indigo-900 text-white ">
+								Login
+							</Button>
+						</div>
+						) : (
+						<div className="flex-1 flex justify-between">
+						<div className="flex-1 mt-3">
 							<h3 className="text-lg font-semibold">Welcome Back...!</h3>
 							{/* <p className="text-sm text-muted-foreground">
 								Get your latest updates for the last 7 days
@@ -67,7 +79,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 										</Button>
 										<div className="flex flex-col gap-3">
 											<p className="text-sm font-medium leading-none">
-												Dr. Kiran
+												{user?.fullname}
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
 											Medibank Plus
@@ -83,7 +95,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 									<DropdownMenuLabel className="font-normal">
 										<div className="flex flex-col space-y-1">
 											<p className="text-sm font-medium leading-none">
-												Dr. Kiran
+												{user?.fullname}
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
 												Medibank Plus
@@ -110,6 +122,8 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</div>
+						</div>
+						)}
 					</div>
 				</header>
 			</div>

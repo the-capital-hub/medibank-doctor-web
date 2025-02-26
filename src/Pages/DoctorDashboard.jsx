@@ -3,10 +3,12 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import MedicoLegalSMSDialog from "../components/AdminDashboardComponents/Popups/MedicoLegalSMSPopup";
-
+import { useSelector } from "react-redux";
 function Dashboard() {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
+	const user = useSelector((state) => state.auth.user);
+	console.log(user);
 	return (
 		<>
 			<div className="bg-gray-50">

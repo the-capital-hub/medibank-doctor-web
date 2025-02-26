@@ -20,6 +20,7 @@ import Add_Icon from "../Images/Add-Icon.png";
 import VitalsCard from "./Popups/components/VitalsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PatientSearchPopup from "./Popups/PatientSearchPopup";
+import { useSelector } from 'react-redux';
 
 const consultationData = {
 	patientSummary: {
@@ -139,6 +140,8 @@ export default function ConsultationPage() {
 	const [showMedication, setShowMedication] = useState(false);
 	const [showNewConsultation, setShowNewConsultation] = useState(false);
 	const [showPatientSearch, setShowPatientSearch] = useState(false);
+	const patientDetails = useSelector((state) => state.patientDetails?.data);
+	console.log('Redux State:', patientDetails);
 
 	// Handler for select change
 	const handleViewChange = (value) => {
@@ -180,7 +183,7 @@ export default function ConsultationPage() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-3">
 						<div>
 							<span className="font-medium">Patient Name: </span>
-							<span>User Name</span>
+							<span>{patientDetails?.medicalRecords?.appointments?.[0]?.PatientName||"N/A"}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">MBID: </span>
@@ -188,11 +191,11 @@ export default function ConsultationPage() {
 							</div> */}
 						<div>
 							<span className="font-medium">Date of Birth: </span>
-							<span>01-01-1989</span>
+							<span>{patientDetails?.patient?.date_of_birth||"N/A"}</span>
 						</div>
 						<div>
 							<span className="font-medium">Gender: </span>
-							<span>Male</span>
+							<span>{patientDetails?.patient?.sex||"N/A"}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">Address: </span>
@@ -203,11 +206,11 @@ export default function ConsultationPage() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-3 pb-3">
 						<div>
 							<span className="font-medium">MID: </span>
-							<span>M1234567890</span>
+							<span>{patientDetails?.patient?.MBID||"N/A"}</span>
 						</div>
 						<div>
 							<span className="font-medium">Address: </span>
-							<span>Hyderabad, Telangana</span>
+							<span>{patientDetails?.medicalRecords?.appointments?.[0]?.address||"N/A"}</span>
 						</div>
 					</div>
 					<hr />
@@ -250,18 +253,18 @@ export default function ConsultationPage() {
 								{currentConsultations.map((item, index) => (
 									<div
 										key={index}
-										className={`rounded-lg p-4 ${item.color} cursor-pointer max-h-fit`}
+										className={`rounded-lg p-4 bg-blue-50 cursor-pointer max-h-fit`}
 										// onClick={() => handleConsultationClick(item)}
 									>
 										<div className="mb-2">
 											<div className="text-sm text-gray-600">
-												Chief Complaint:
+												
 											</div>
-											<div className="font-medium">{item.complaint}</div>
+											<div className="font-medium">{patientDetails?.medicalRecords?.appointments?.[0]?.chiefComplaint}</div>
 										</div>
 										<div className="flex justify-between text-sm text-gray-600">
-											<span>{item.date}</span>
-											<span>{item.doctor}</span>
+											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.selectDate}</span>
+											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.doctorName}</span>
 										</div>
 									</div>
 								))}
@@ -276,7 +279,7 @@ export default function ConsultationPage() {
 								<div className="flex flex-wrap gap-4">
 									<VitalsCard
 										title="Blood Sugar"
-										value="80"
+										
 										unit="mg/dL"
 										status="Normal"
 										trend="up"
@@ -285,7 +288,7 @@ export default function ConsultationPage() {
 									/>
 									<VitalsCard
 										title="Heart Rate"
-										value="98"
+										
 										unit="bpm"
 										status="Normal"
 										trend="stable"
@@ -403,24 +406,24 @@ export default function ConsultationPage() {
 						</div>
 						<div className=" flex flex-col justify-between">
 							<div className="flex flex-col gap-3 py-4">
-								{currentConsultations.map((item, index) => (
+								{/* {currentConsultations.map((item, index) => ( */}
 									<div
-										key={index}
-										className={`rounded-lg p-4 ${item.color} cursor-pointer max-h-fit`}
+										// key={index}
+										className={`rounded-lg p-4 bg-blue-50 cursor-pointer max-h-fit`}
 										// onClick={() => handleConsultationClick(item)}
 									>
 										<div className="mb-2">
 											<div className="text-sm text-gray-600">
 												Chief Complaint:
 											</div>
-											<div className="font-medium">{item.complaint}</div>
+											<div className="font-medium">{patientDetails?.medicalRecords?.appointments?.[0]?.chiefComplaint}</div>
 										</div>
 										<div className="flex justify-between text-sm text-gray-600">
-											<span>{item.date}</span>
-											<span>{item.doctor}</span>
+											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.selectDate}</span>
+											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.doctorName}</span>
 										</div>
 									</div>
-								))}
+								{/* ))} */}
 							</div>
 							<Button className="text-teal-500 w-fit mx-auto mb-5">
 								Show All

@@ -8,17 +8,42 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useDispatch } from "react-redux";
+import { gql, useQuery } from "@apollo/client";
+import { setPatientDetails } from "@/Redux/patientDetailsSlice";
+const GET_PATIENT_DETAILS = gql`
+	query getPatientDetails($patientId: String!) {
+		getPatientDetails(patientId: $patientId) {
+			status
+			message
+			data
+		}
+	}
+`;
 
 export default function PatientSearchDialog({ open, onOpenChange }) {
+	const dispatch = useDispatch();
+	const { loading, error, refetch } = useQuery(GET_PATIENT_DETAILS, {
+		skip: true,
+		variables: { patientId: "" },
+		onCompleted: (data) => {
+			console.log('API Response:', data);
+			if (data?.getPatientDetails?.status) {
+				onOpenChange(false);
+				navigate(`/consultation/${medilogId}`);
+				dispatch(setPatientDetails(data.getPatientDetails.data));
+
+			}
+		},
+	});
 	const navigate = useNavigate();
 	const [medilogId, setMedilogId] = useState("");
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Handle the form submission here
 		console.log("Medilog ID submitted:", medilogId);
-		onOpenChange(false);
-		navigate(`/consultation/${medilogId}`);
+		
+	
+		refetch({ patientId: medilogId });
 		setMedilogId("");
 	};
 
@@ -42,6 +67,7 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 							placeholder="M12345"
 							value={medilogId}
 							onChange={(e) => setMedilogId(e.target.value)}
+							
 							className="h-12"
 						/>
 					</div>
@@ -56,10 +82,12 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 						</Button>
 						<Button
 							type="submit"
-							className="flex-1 text-base font-normal bg-purple-600 hover:bg-purple-700"
+							className="flex-1 text-base font-normal text-white bg-purple-600 hover:bg-purple-700"
+							disabled={loading}
 						>
-							Continue
+							{loading ? "Loading..." : "Continue"}
 						</Button>
+							{error && <span className="text-red-500">{error.message}</span>}
 					</div>
 				</form>
 			</DialogContent>

@@ -68,6 +68,7 @@ export function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [showOTPDialog, setShowOTPDialog] = useState(false);
+
   
   // Initialize form data with all required fields
   const [formData, setFormData] = useState({

@@ -11,7 +11,9 @@ import { ForgotPasswordPopup } from "./ForgotPasswordPopup";
 import LanguageSelector from "../Popups/LanguageSearchPopup";
 import { toast } from "react-toastify";
 import { gql, useMutation } from "@apollo/client";
-
+import { useDispatch } from "react-redux";
+import {  setUser } from "@/Redux/authSlice";
+import { useNavigate } from "react-router-dom";
 const Login = gql`
 	mutation Login($EmailOrMobile: String!, $Password: String!) {
 		login(EmailOrMobile: $EmailOrMobile, Password: $Password) {
@@ -24,6 +26,8 @@ const Login = gql`
 
 export function LoginForm() {
 	const [showPassword, setShowPassword] = useState(false);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 	const [formData, setFormData] = useState({
 		EmailOrMobile: "",
@@ -36,10 +40,13 @@ export function LoginForm() {
 
 	const [open, setOpen] = useState(false);
 	const [login, { loading }] = useMutation(Login, {
+		
 		onCompleted: (data) => {
 		  console.log("Login response:", data); // Add this to debug
 		  if (data && data.login) {
 			toast(data.login.message || "Login successful!");
+			dispatch(setUser(data.login.data.user));
+			navigate("/");
 			// Optional: Add navigation here
 			// navigate('/dashboard');
 		  }
