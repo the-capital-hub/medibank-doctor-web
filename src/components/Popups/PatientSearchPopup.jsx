@@ -11,12 +11,14 @@ import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
 import { gql, useQuery } from "@apollo/client";
 import { setPatientDetails } from "@/Redux/patientDetailsSlice";
+import { Loader2 } from "lucide-react";
 const GET_PATIENT_DETAILS = gql`
 	query getPatientDetails($patientId: String!) {
 		getPatientDetails(patientId: $patientId) {
 			status
-			message
 			data
+			message
+			
 		}
 	}
 `;
@@ -30,8 +32,8 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 			console.log('API Response:', data);
 			if (data?.getPatientDetails?.status) {
 				onOpenChange(false);
+				dispatch(setPatientDetails(data.getPatientDetails));
 				navigate(`/consultation/${medilogId}`);
-				dispatch(setPatientDetails(data.getPatientDetails.data));
 
 			}
 		},
@@ -41,10 +43,8 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log("Medilog ID submitted:", medilogId);
-		
-	
 		refetch({ patientId: medilogId });
-		setMedilogId("");
+		
 	};
 
 	const handleCancel = () => {
@@ -77,14 +77,17 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 							variant="outline"
 							className="flex-1 text-base font-normal border-2"
 							onClick={handleCancel}
+							disabled={loading}
 						>
-							Cancel
+							{loading ? <Loader2 className="animate-spin w-4 h-4" title="Cancelling"/> : ""}
+							{loading ? "Cancelling..." : "Cancel"}
 						</Button>
 						<Button
 							type="submit"
 							className="flex-1 text-base font-normal text-white bg-purple-600 hover:bg-purple-700"
 							disabled={loading}
 						>
+							{loading ? <Loader2 className="animate-spin w-4 h-4" title="Loading"/> : ""}
 							{loading ? "Loading..." : "Continue"}
 						</Button>
 							{error && <span className="text-red-500">{error.message}</span>}

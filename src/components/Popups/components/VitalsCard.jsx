@@ -22,8 +22,9 @@ ChartJS.register(
 	Filler,
 	Legend
 );
-import { HeartPulse, Syringe, Droplet } from "lucide-react";
+import { HeartPulse, Thermometer, Droplet } from "lucide-react";
 import SPO2 from "../../../Images/spo2-icon.png";
+import { useSelector } from "react-redux";
 
 const VitalsCard = ({
 	title,
@@ -33,21 +34,23 @@ const VitalsCard = ({
 	trend,
 	color,
 	width = 100,
-}) => (
+}) => {
+	const patientDetails = useSelector((state) => state.patientDetails?.data);
+	return (
 	<>
-		{title === "Blood Sugar" && (
+		{title === "Body Temperature" && (
 			<Card className={`w-[${width}px] h-auto shadow-lg`}>
 				<CardHeader className="p-3">
 					<CardTitle className="flex items-center">
 						<div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center mr-3">
-							<Syringe className="w-6 h-6 text-orange-400" />
+							<Thermometer className="w-6 h-6 text-orange-400" />
 						</div>
-						<span className="text-xs">Blood Sugar</span>
+						<span className="text-xs">Body Temperature</span>
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="p-3">
 					<div className=" font-bold mb-2 text-xs text-gray-500">
-						<span className="text-base text-black">80</span> mg/dL
+						<span className="text-base text-black">{patientDetails?.data?.lastUpdatedVitals?.bodyTemp}</span> °F
 					</div>
 					<div className="text-gray-500 text-[12px]">Normal</div>
 					<div className="mt-4 h-16">
@@ -57,7 +60,16 @@ const VitalsCard = ({
 								datasets: [
 									{
 										fill: true,
-										data: [65, 75, 70, 80, 75, 80],
+										data: [
+											
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp - 3,
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp - 2,
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp - 1,
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp,
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp + 1,
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp + 2,
+											patientDetails?.data?.lastUpdatedVitals?.bodyTemp + 3,
+										],
 										borderColor: "#fbbf24",
 										backgroundColor: "rgba(251, 191, 36, 0.1)",
 										tension: 0.4,
@@ -70,7 +82,7 @@ const VitalsCard = ({
 								plugins: { legend: { display: false } },
 								scales: {
 									x: { display: false },
-									y: { display: false, min: 60, max: 85 },
+									y: { display: false, min: 97, max: 105},
 								},
 								elements: { point: { radius: 0 } },
 							}}
@@ -91,7 +103,7 @@ const VitalsCard = ({
 				</CardHeader>
 				<CardContent className="p-3">
 					<div className="font-bold mb-2 text-xs text-gray-500">
-						<span className="text-base text-black">98 </span>
+						<span className="text-base text-black">{patientDetails?.data?.lastUpdatedVitals?.heartRate}</span>
 						bpm
 					</div>
 					<div className="text-gray-500 text-xs">Normal</div>
@@ -102,7 +114,15 @@ const VitalsCard = ({
 								datasets: [
 									{
 										fill: true,
-										data: [90, 95, 92, 98, 96, 98],
+										data: [
+											patientDetails?.data?.lastUpdatedVitals?.heartRate - 3,
+											patientDetails?.data?.lastUpdatedVitals?.heartRate - 2,
+											patientDetails?.data?.lastUpdatedVitals?.heartRate - 1,
+											patientDetails?.data?.lastUpdatedVitals?.heartRate,
+											patientDetails?.data?.lastUpdatedVitals?.heartRate + 1,
+											patientDetails?.data?.lastUpdatedVitals?.heartRate + 2,
+											patientDetails?.data?.lastUpdatedVitals?.heartRate + 3,
+										],
 										borderColor: "#ef4444",
 										backgroundColor: "rgba(239, 68, 68, 0.1)",
 										tension: 0.4,
@@ -115,7 +135,7 @@ const VitalsCard = ({
 								plugins: { legend: { display: false } },
 								scales: {
 									x: { display: false },
-									y: { display: false, min: 85, max: 100 },
+									y: { display: false, min: 72, max: 120 },
 								},
 								elements: { point: { radius: 0 } },
 							}}
@@ -136,7 +156,7 @@ const VitalsCard = ({
 				</CardHeader>
 				<CardContent className="p-3">
 					<div className="text-gray-500 text-xs font-bold mb-2">
-						<span className="text-base text-black">102 </span>/ 72 mmhg
+						<span className="text-base text-black">{patientDetails?.data?.lastUpdatedVitals?.bloodPres}</span> mmhg
 					</div>
 					<div className="text-gray-500 text-xs">Normal</div>
 					<div className="mt-4 h-16">
@@ -146,7 +166,15 @@ const VitalsCard = ({
 								datasets: [
 									{
 										fill: true,
-										data: [100, 105, 102, 108, 104, 102],
+										data: [
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres - 3,
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres - 2,
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres - 1,
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres,
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres + 1,
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres + 2,
+											patientDetails?.data?.lastUpdatedVitals?.bloodPres + 3,
+										],
 										borderColor: "#2dd4bf",
 										backgroundColor: "rgba(45, 212, 191, 0.1)",
 										tension: 0.4,
@@ -159,7 +187,7 @@ const VitalsCard = ({
 								plugins: { legend: { display: false } },
 								scales: {
 									x: { display: false },
-									y: { display: false, min: 95, max: 110 },
+									y: { display: false, min: 70, max: 150 },
 								},
 								elements: { point: { radius: 0 } },
 							}}
@@ -182,7 +210,7 @@ const VitalsCard = ({
 				<CardContent className="p-3">
 					<div className="text-gray-500 text-xs font-bold mb-2">
 						{/* <span className="text-base text-black">102 </span>/ 72 mmhg */}
-						<span className="text-base text-black">98 % </span>
+						<span className="text-base text-black">{patientDetails?.data?.lastUpdatedVitals?.spO2}</span> %
 					</div>
 					<div className="text-gray-500 text-xs">Normal</div>
 					<div className="mt-4 h-16">
@@ -192,7 +220,15 @@ const VitalsCard = ({
 								datasets: [
 									{
 										fill: true,
-										data: [100, 105, 102, 108, 104, 102],
+										data: [
+											patientDetails?.data?.lastUpdatedVitals?.spO2 - 3,
+											patientDetails?.data?.lastUpdatedVitals?.spO2 - 2,
+											patientDetails?.data?.lastUpdatedVitals?.spO2 - 1,
+											patientDetails?.data?.lastUpdatedVitals?.spO2,
+											patientDetails?.data?.lastUpdatedVitals?.spO2 + 1,
+											patientDetails?.data?.lastUpdatedVitals?.spO2 + 2,
+											patientDetails?.data?.lastUpdatedVitals?.spO2 + 3,
+										],
 										// borderColor: "#2dd4bf",
 										borderColor: "#4AB58E",
 										// backgroundColor: "rgba(45, 212, 191, 0.1)",
@@ -207,7 +243,7 @@ const VitalsCard = ({
 								plugins: { legend: { display: false } },
 								scales: {
 									x: { display: false },
-									y: { display: false, min: 95, max: 110 },
+									y: { display: false, min: 93, max: 100 },
 								},
 								elements: { point: { radius: 0 } },
 							}}
@@ -217,6 +253,7 @@ const VitalsCard = ({
 			</Card>
 		)}
 	</>
-);
+	);
+};
 
 export default VitalsCard;

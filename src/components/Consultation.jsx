@@ -141,8 +141,8 @@ export default function ConsultationPage() {
 	const [showNewConsultation, setShowNewConsultation] = useState(false);
 	const [showPatientSearch, setShowPatientSearch] = useState(false);
 	const patientDetails = useSelector((state) => state.patientDetails?.data);
-	console.log('Redux State:', patientDetails);
 
+	const appointments = patientDetails?.data?.appointmentDetails || [];
 	// Handler for select change
 	const handleViewChange = (value) => {
 		setSelectedView(value);
@@ -183,7 +183,7 @@ export default function ConsultationPage() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-3">
 						<div>
 							<span className="font-medium">Patient Name: </span>
-							<span>{patientDetails?.medicalRecords?.appointments?.[0]?.PatientName||"N/A"}</span>
+							<span>{patientDetails?.data?.userDetails?.fullname||"N/A"}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">MBID: </span>
@@ -191,11 +191,11 @@ export default function ConsultationPage() {
 							</div> */}
 						<div>
 							<span className="font-medium">Date of Birth: </span>
-							<span>{patientDetails?.patient?.date_of_birth||"N/A"}</span>
+							<span>{patientDetails?.data?.userDetails?.date_of_birth||"N/A"}</span>
 						</div>
 						<div>
 							<span className="font-medium">Gender: </span>
-							<span>{patientDetails?.patient?.sex||"N/A"}</span>
+							<span>{patientDetails?.data?.userDetails?.sex||"N/A"}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">Address: </span>
@@ -206,11 +206,11 @@ export default function ConsultationPage() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-3 pb-3">
 						<div>
 							<span className="font-medium">MID: </span>
-							<span>{patientDetails?.patient?.MBID||"N/A"}</span>
+							<span>{patientDetails?.data?.userDetails?.MBID||"N/A"}</span>
 						</div>
 						<div>
 							<span className="font-medium">Address: </span>
-							<span>{patientDetails?.medicalRecords?.appointments?.[0]?.address||"N/A"}</span>
+							<span>{patientDetails?.data?.userDetails?.address||"N/A"}</span>
 						</div>
 					</div>
 					<hr />
@@ -250,21 +250,21 @@ export default function ConsultationPage() {
 					<div className="grid grid-cols-[1fr_2fr_1fr] gap-4">
 						<div className=" flex flex-col justify-between">
 							<div className="flex flex-col gap-3 py-4">
-								{currentConsultations.map((item, index) => (
+								{appointments.map((appointment, index) => (
 									<div
 										key={index}
 										className={`rounded-lg p-4 bg-blue-50 cursor-pointer max-h-fit`}
-										// onClick={() => handleConsultationClick(item)}
+										onClick={() => handleConsultationClick(appointment)}
 									>
 										<div className="mb-2">
 											<div className="text-sm text-gray-600">
 												
 											</div>
-											<div className="font-medium">{patientDetails?.medicalRecords?.appointments?.[0]?.chiefComplaint}</div>
+											<div className="font-medium">{appointment?.chiefComplaint}</div>
 										</div>
 										<div className="flex justify-between text-sm text-gray-600">
-											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.selectDate}</span>
-											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.doctorName}</span>
+											<span>{appointment?.selectDate}</span>
+											<span>{appointment?.doctorName}</span>
 										</div>
 									</div>
 								))}
@@ -278,9 +278,9 @@ export default function ConsultationPage() {
 								<h2 className=" text-indigo-800 text-left mb-6">Vitals</h2>
 								<div className="flex flex-wrap gap-4">
 									<VitalsCard
-										title="Blood Sugar"
-										
-										unit="mg/dL"
+										title="Body Temperature"
+										value={patientDetails?.data?.lastUpdatedVitals?.bodyTemp}
+										unit="°F"
 										status="Normal"
 										trend="up"
 										color="bg-orange-50"
@@ -406,24 +406,24 @@ export default function ConsultationPage() {
 						</div>
 						<div className=" flex flex-col justify-between">
 							<div className="flex flex-col gap-3 py-4">
-								{/* {currentConsultations.map((item, index) => ( */}
+								{appointments.map((appointment, index) => (
 									<div
-										// key={index}
+										key={index}
 										className={`rounded-lg p-4 bg-blue-50 cursor-pointer max-h-fit`}
-										// onClick={() => handleConsultationClick(item)}
+										onClick={() => handleConsultationClick(appointment)}
 									>
 										<div className="mb-2">
 											<div className="text-sm text-gray-600">
 												Chief Complaint:
 											</div>
-											<div className="font-medium">{patientDetails?.medicalRecords?.appointments?.[0]?.chiefComplaint}</div>
+											<div className="font-medium">{appointment?.chiefComplaint}</div>
 										</div>
 										<div className="flex justify-between text-sm text-gray-600">
-											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.selectDate}</span>
-											<span>{patientDetails?.medicalRecords?.appointments?.[0]?.doctorName}</span>
+											<span>{appointment?.selectDate}</span>
+											<span>{appointment?.doctorName}</span>
 										</div>
 									</div>
-								{/* ))} */}
+								))}
 							</div>
 							<Button className="text-teal-500 w-fit mx-auto mb-5">
 								Show All

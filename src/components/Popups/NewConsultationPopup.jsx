@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { X, FileSpreadsheet, Plus } from "lucide-react";
-
+import { useSelector } from "react-redux";
 export default function DetailedConsultationDialog({ open, onOpenChange }) {
+	const user = useSelector((state) => state.auth.user);
 	const [formData, setFormData] = useState({
 		complaint: "",
 		note: "",
@@ -82,7 +83,10 @@ export default function DetailedConsultationDialog({ open, onOpenChange }) {
 			<DialogContent className="sm:max-w-[95dvw] rounded-3xl bg-white">
 				<DialogHeader className="flex flex-row items-center justify-between border-b pb-4">
 					<div className="flex items-center justify-between w-full">
-						<h2 className="text-xl">Dr John Doe - 30 May 2024</h2>
+						<h2 className="text-xl">
+							{patientDetails?.data?.appointmentDetails?.[0]?.doctorName} -
+							{patientDetails?.data?.appointmentDetails?.[0]?.selectDate}
+						</h2>
 					</div>
 				</DialogHeader>
 

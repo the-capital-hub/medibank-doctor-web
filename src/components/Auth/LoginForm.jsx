@@ -14,6 +14,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import {  setUser } from "@/Redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 const Login = gql`
 	mutation Login($EmailOrMobile: String!, $Password: String!) {
 		login(EmailOrMobile: $EmailOrMobile, Password: $Password) {
@@ -44,7 +45,7 @@ export function LoginForm() {
 		onCompleted: (data) => {
 		  console.log("Login response:", data); // Add this to debug
 		  if (data && data.login) {
-			toast(data.login.message || "Login successful!");
+			toast.success(data.login.message || "Login successful!");
 			dispatch(setUser(data.login.data.user));
 			navigate("/");
 			// Optional: Add navigation here
@@ -160,6 +161,7 @@ export function LoginForm() {
 						</div>
 
 						<Button className="w-full bg-indigo-600 text-white" size="lg" disabled={loading}>
+							{loading ? <Loader2 className="animate-spin w-4 h-4" title="Signing in"/> : ""}
 							{loading ? "Signing in..." : "Sign in"}
 						</Button>
 

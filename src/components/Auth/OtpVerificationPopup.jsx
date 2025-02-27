@@ -16,6 +16,8 @@ import { gql, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import {  setUser } from "@/Redux/authSlice";
+import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 const verifyOtp = gql`
 	mutation VerifyAndRegisterUser($EmailID: String!, $emailOtp: String!, $mobile_num: String!, $mobileOtp: String!) {
 		verifyAndRegisterUser(EmailID: $EmailID, emailOtp: $emailOtp, mobile_num: $mobile_num, mobileOtp: $mobileOtp) {
@@ -28,15 +30,19 @@ const verifyOtp = gql`
 
 export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [mobileOTP, setMobileOTP] = useState("");
 	const [emailOTP, setEmailOTP] = useState("");
 	const [verifyAndRegisterUser, { loading }] = useMutation(verifyOtp,{
 		onCompleted: (data) => {
 			if (data && data.verifyAndRegisterUser) {
-			  toast(data.verifyAndRegisterUser.message);
+			  toast.success(data.verifyAndRegisterUser.message);
 			  onClose();
 			  dispatch(setUser(data.verifyAndRegisterUser.data));
 			  navigate("/");
+			}
+			else{
+				toast.error(data.verifyAndRegisterUser.message);
 			}
 		}
 	});
@@ -58,10 +64,7 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 				}
 			});
 
-			if (result.data.verifyAndRegisterUser.status === "success") {
-				
-				// You might want to redirect here
-			}
+			
 		} catch (error) {
 			toast("Error verifying OTP: " + error.message);
 			console.error("Mutation error:", error);
@@ -170,7 +173,8 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 							className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
 							onClick={handleVerify}
 						>
-							    {loading ? "Verifying OTP...": "Verify OTP"}
+							    {loading ? <Loader2 className="animate-spin w-4 h-4" title="Verifying OTP"/> : ""}
+								{loading ? "Verifying OTP...": "Verify OTP"}
 
 						</Button>
 					</div>
