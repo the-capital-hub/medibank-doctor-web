@@ -5,8 +5,8 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
-export default function LogoutAlert({ open, onOpenChange, onLogout }) {
+import { Loader2 } from "lucide-react";
+export default function LogoutAlert({ open, onOpenChange, onLogout, loading, error }) {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:max-w-[425px] rounded-3xl z-50 bg-white">
@@ -27,10 +27,13 @@ export default function LogoutAlert({ open, onOpenChange, onLogout }) {
 						</Button>
 						<Button
 							className="flex-1 text-base text-white font-normal bg-indigo-800 hover:bg-indigo-700"
-							onClick={onLogout}
+							onClick={onLogout} disabled={loading}
 						>
-							Yes, Logout
+							{loading ? <Loader2 className="animate-spin w-4 h-4" title="Logging out"/> : ""}
+							{loading ? "Logging out..." : "Yes, Logout"}
+
 						</Button>
+						{error && <p className="text-red-500">{error}</p>}
 					</div>
 				</div>
 			</DialogContent>

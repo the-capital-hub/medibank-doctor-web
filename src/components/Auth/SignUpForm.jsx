@@ -15,7 +15,7 @@ import {
 import OTPVerificationPopup from "./OtpVerificationPopup";
 import { toast } from "react-toastify";
 import { useMutation, gql } from "@apollo/client";
-
+import { Loader2 } from "lucide-react";
 const Register = gql`
   mutation Register(
     $fullname: String!,
@@ -583,6 +583,7 @@ export function SignupForm() {
               size="lg"
               disabled={loading}
             >
+              {loading ? <Loader2 className="animate-spin w-4 h-4" title="Creating Account"/> : ""}
               {loading ? "Creating Account..." : "Create Account"}
             </Button>
 

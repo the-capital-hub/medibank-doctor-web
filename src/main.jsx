@@ -19,8 +19,8 @@ createRoot(document.getElementById('root')).render(
         </PersistGate>
         </Provider>
         <ToastContainer
-          position="top-right"
-          autoClose={3000}
+          position="bottom-right"
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop
         closeOnClick

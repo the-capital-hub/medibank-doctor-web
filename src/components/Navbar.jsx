@@ -16,15 +16,44 @@ import SubscriptionPopup from "./Popups/SubscriptionPopup";
 import Avtar from "../Images/DummyPic1.png";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useMutation,gql } from "@apollo/client";
+import { useDispatch } from "react-redux";
+import { setUser } from "../Redux/authSlice";
+import { setPatientDetails } from "../Redux/patientDetailsSlice";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+const LOGOUT = gql`
+	mutation Logout {
+		logout{
+			status
+			message
+		}
+	}
+`;
 export function Navbar({ isCollapsed, setIsCollapsed }) {
 	const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [showSubscription, setShowSubscription] = useState(false);
-	const  user  = useSelector((state) => state.auth.user || {});
+	const user = useSelector((state) => state.auth.user);
+	const [logout, { loading, error }] = useMutation(LOGOUT, {
+		onCompleted: (data) => {
+			if(data.logout && data.logout.status === true) {
+				dispatch(setUser(null));
+				dispatch(setPatientDetails(null));
+				setShowLogoutAlert(false);
+				navigate("/doctor/login");
+				toast.success(data.logout.message);
+			}
+		},
+		onError: (error) => {
+			console.error("Error in logout mutation:", error);
+		},
+	});
 	const handleLogout = () => {
 		// Add your logout logic here
-		console.log("Logging out...");
-		setShowLogoutAlert(false);
+		logout();
 	};
 	return (
 		<>
@@ -43,12 +72,13 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 						</Button>
 						
 						{!user ? (
-
-						<div className="flex-1 flex justify-end">
-							<Button onClick={() => navigate("/doctor/login")} className="bg-indigo-800 rounded-lg hover:bg-indigo-900 text-white ">
-								Login
-							</Button>
-						</div>
+							<div className="flex-1 flex justify-end">
+								<Link to="/doctor/login">
+									<button className="w-24 h-10 bg-indigo-800 rounded-lg hover:bg-indigo-900 text-base font-medium text-white">
+										Login
+									</button>
+								</Link>
+							</div>
 						) : (
 						<div className="flex-1 flex justify-between">
 						<div className="flex-1 mt-3">
@@ -132,6 +162,8 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 				open={showLogoutAlert}
 				onOpenChange={setShowLogoutAlert}
 				onLogout={handleLogout}
+				loading={loading}
+				error={error}
 			/>
 			<SubscriptionPopup open={showSubscription} close={setShowSubscription} />
 		</>

@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Cookies from 'js-cookie';
+// http://ec2-3-94-100-11.compute-1.amazonaws.com:8080/graphql
 const httpLink = createHttpLink({
   uri: 'http://ec2-3-94-100-11.compute-1.amazonaws.com:8080/graphql', // Replace with your actual GraphQL endpoint
   credentials: 'include', // This ensures cookies are sent with requests
