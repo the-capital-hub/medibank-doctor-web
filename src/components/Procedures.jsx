@@ -4,7 +4,7 @@ import { ArrowLeft, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import NewConsultationPopup from "./Popups/NewConsultationPopup";
+// import NewConsultationPopup from "./Popups/NewConsultationPopup";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 const breadcrumbItems = [

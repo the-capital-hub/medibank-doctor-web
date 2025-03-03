@@ -29,7 +29,6 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 		skip: true,
 		variables: { patientId: "" },
 		onCompleted: (data) => {
-			console.log('API Response:', data);
 			if (data?.getPatientDetails?.status) {
 				onOpenChange(false);
 				dispatch(setPatientDetails(data.getPatientDetails));
@@ -84,7 +83,7 @@ export default function PatientSearchDialog({ open, onOpenChange }) {
 						</Button>
 						<Button
 							type="submit"
-							className="flex-1 text-base font-normal text-white bg-purple-600 hover:bg-purple-700"
+							className="flex-1 text-base font-normal text-white bg-indigo-600 hover:bg-indigo-700"
 							disabled={loading}
 						>
 							{loading ? <Loader2 className="animate-spin w-4 h-4" title="Loading"/> : ""}

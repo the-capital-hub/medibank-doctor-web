@@ -41,7 +41,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => {
 				</CardHeader>
 				<CardContent className="p-4">
 					<div className=" font-bold mb-2 text-gray-500">
-						<span className="text-3xl text-black">{patientDetails?.medicalRecords?.appointments?.[0]?.bloodSugar}</span> mg/dL
+						<span className="text-3xl text-black">{patientDetails?.data?.lastUpdatedVitals?.bodyTemp||"N/A"}</span> mg/dL
 					</div>
 					<div className="text-gray-500">Normal</div>
 					<div className="mt-4 h-16">
@@ -85,7 +85,7 @@ const VitalsCard = ({ title, value, unit, status, trend, color }) => {
 				</CardHeader>
 				<CardContent className="p-4">
 					<div className="font-bold mb-2 text-gray-500">
-						<span className="text-3xl text-black">{patientDetails?.medicalRecords?.appointments?.[0]?.heartRate||"N/A"}</span>
+						<span className="text-3xl text-black">{patientDetails?.data?.lastUpdatedVitals?.heartRate||"N/A"}</span>
 						bpm
 					</div>
 					<div className="text-gray-500">Normal</div>
