@@ -20,6 +20,8 @@ const getRandomColorClass = () => {
 	return colors[Math.floor(Math.random() * colors.length)];
 };
 
+
+
 const breadcrumbItems = [
 	{ label: "Home", href: "/" },
 	{ label: "Consultation", href: "/consultation" },

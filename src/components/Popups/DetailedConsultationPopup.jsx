@@ -6,12 +6,12 @@ import { Textarea } from "@/components/ui/textarea";
 // import { X } from "lucide-react";
 import  VitalsCard  from "./components/VitalsCard";
 import { MedicationTable } from "./components/MedicationTables";
-
-export default function DetailedConsultationDialog({
+import { useSelector } from "react-redux";
+export default function DetailedConsultationPopup(
 	open,
 	onOpenChange,
-	consultation,
-}) {
+ ) {
+	const patientDetails = useSelector((state) => state.patientDetails?.data);
 	const [formData, setFormData] = useState({
 		complaint: "",
 		note: "",
@@ -25,7 +25,7 @@ export default function DetailedConsultationDialog({
 			<DialogContent className="sm:max-w-[90dvw] rounded-3xl bg-white">
 				<DialogHeader className="flex flex-row items-center justify-between border-b pb-4">
 					<h2 className="text-xl font-semibold">
-						{consultation?.doctor} - {consultation?.date}
+						{patientDetails?.medicalRecords?.appointments?.[0]?.doctorName} - {patientDetails?.medicalRecords?.appointments?.[0]?.selecteDate}
 					</h2>
 				</DialogHeader>
 
@@ -56,11 +56,11 @@ export default function DetailedConsultationDialog({
 						<div className="space-y-2">
 							<label className="text-sm font-medium">Diagnostic Tests</label>
 							<div className="p-4 border rounded-lg">
-								{formData.diagnosticTests.map((test, index) => (
+								{/* {formData.diagnosticTests?.map((test, index) => (
 									<div key={index} className="text-purple-600">
 										{test}
 									</div>
-								))}
+								))} */}
 							</div>
 						</div>
 					</div>

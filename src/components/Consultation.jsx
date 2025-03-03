@@ -15,12 +15,14 @@ import { Link } from "react-router-dom";
 import ConsultationContent from "./ConsultationContent";
 import DiagnosticTestsPopup from "./Popups/DiagnosticTestsPopup";
 import MedicationPopup from "./Popups/MedicationPopup";
-import NewConsultationPopup from "./Popups/NewConsultationPopup";
+import DetailedConsultationDialog from "./Popups/DetailedConsultationDialog";
 import Add_Icon from "../Images/Add-Icon.png";
 import VitalsCard from "./Popups/components/VitalsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PatientSearchPopup from "./Popups/PatientSearchPopup";
 import { useSelector } from 'react-redux';
+// import DetailedConsultationPopup from "./Popups/DetailedConsultationPopup";
+import NewDiagnosisPopup from "./Popups/NewDiagnosisPopup";
 
 const consultationData = {
 	patientSummary: {
@@ -138,8 +140,10 @@ export default function ConsultationPage() {
 	const [activeTab, setActiveTab] = useState("diagnosis");
 	const [showDiagnosticTests, setShowDiagnosticTests] = useState(false);
 	const [showMedication, setShowMedication] = useState(false);
-	const [showNewConsultation, setShowNewConsultation] = useState(false);
+	const [showDetailedConsultation, setShowDetailedConsultation] = useState(false);
+	const [selectedAppointment, setSelectedAppointment] = useState(null);
 	const [showPatientSearch, setShowPatientSearch] = useState(false);
+	const [showNewDiagnosis, setShowNewDiagnosis] = useState(false);
 	const patientDetails = useSelector((state) => state.patientDetails?.data);
 
 	const appointments = patientDetails?.data?.appointmentDetails || [];
@@ -150,11 +154,25 @@ export default function ConsultationPage() {
 		setActiveTab(viewTabs[value][0].value);
 	};
 
+	const handleConsultationClick = (appointment) => {
+		setSelectedAppointment(appointment);
+		setShowDetailedConsultation(true);
+	};
+
+	//  const handleNewConsultationClick =()=>{
+
+	// 	setShowNewConsultation(true);
+	// 	}
+
 	// Get current tabs for the selected view
 	const currentTabs = viewTabs[selectedView];
 
 	// Get current consultations based on selected view and tab
 	const currentConsultations = consultationData[selectedView][activeTab];
+
+	// if(patientDetails?.data?.appointmentDetails?.doctorName === user?.fullname){
+
+	// }
 
 	return (
 		<div className="container mx-auto p-6">
@@ -219,7 +237,8 @@ export default function ConsultationPage() {
 						<Button
 							variant="contained"
 							className="m-3 bg-indigo-800 text-white text-center"
-							onClick={() => setShowNewConsultation(true)}
+							onClick={() => setShowNewDiagnosis(true)}
+						
 						>
 							Diagnosis{" "}
 							{/* <img src={Add_Icon} alt="Add Icon" className="inline h-4 w-4" /> */}
@@ -288,7 +307,7 @@ export default function ConsultationPage() {
 									/>
 									<VitalsCard
 										title="Heart Rate"
-										
+										value={patientDetails?.data?.lastUpdatedVitals?.heartRate}
 										unit="bpm"
 										status="Normal"
 										trend="stable"
@@ -297,7 +316,7 @@ export default function ConsultationPage() {
 									/>
 									<VitalsCard
 										title="Blood Pressure"
-										value="102/72"
+										value={patientDetails?.data?.lastUpdatedVitals?.bloodPressure}
 										unit="mmHg"
 										status="Normal"
 										trend="down"
@@ -306,7 +325,7 @@ export default function ConsultationPage() {
 									/>
 									<VitalsCard
 										title="SPO2"
-										value="102/72"
+										value={patientDetails?.data?.lastUpdatedVitals?.spo2}
 										unit="mmHg"
 										status="Normal"
 										trend="down"
@@ -520,11 +539,18 @@ export default function ConsultationPage() {
 				onOpenChange={setShowDiagnosticTests}
 			/>
 			<MedicationPopup open={showMedication} onOpenChange={setShowMedication} />
-			<NewConsultationPopup
-				open={showNewConsultation}
-				onOpenChange={setShowNewConsultation}
-			/>
+			{showDetailedConsultation && selectedAppointment && (
+				<DetailedConsultationDialog
+				open={showDetailedConsultation}
+				onOpenChange={setShowDetailedConsultation}
+				appointment={selectedAppointment}
+				/>
+			)}
+<NewDiagnosisPopup
+open = {showNewDiagnosis}
+onOpenChange = {setShowNewDiagnosis}
 
+/>
 			<PatientSearchPopup
 				open={showPatientSearch}
 				onOpenChange={setShowPatientSearch}
