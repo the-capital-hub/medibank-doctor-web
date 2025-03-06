@@ -201,7 +201,7 @@ export default function ConsultationPage() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-3">
 						<div>
 							<span className="font-medium">Patient Name: </span>
-							<span>{patientDetails?.data?.userDetails?.fullname||"N/A"}</span>
+							<span>{patientDetails?.data?.userDetails?.firstName+" "+patientDetails?.data?.userDetails?.lastName||"N/A"}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">MBID: </span>
@@ -266,7 +266,7 @@ export default function ConsultationPage() {
 
 					<hr />
 
-					<div className="grid grid-cols-[1fr_2fr_1fr] gap-4">
+					<div className="grid grid-cols-[1fr_2fr_1fr] gap-3">
 						<div className=" flex flex-col justify-between">
 							<div className="flex flex-col gap-3 py-4">
 								{appointments.map((appointment, index) => (

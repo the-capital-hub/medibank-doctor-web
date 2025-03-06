@@ -36,9 +36,9 @@ export default function OTPVerificationPopup({ isOpen, onClose, formData }) {
 	const [verifyAndRegisterUser, { loading }] = useMutation(verifyOtp,{
 		onCompleted: (data) => {
 			if (data && data.verifyAndRegisterUser) {
-			  toast.success(data.verifyAndRegisterUser.message);
+			  toast.success(data.verifyAndRegisterUser?.message);
 			  onClose();
-			  dispatch(setUser(data.verifyAndRegisterUser.data));
+			  dispatch(setUser(data.verifyAndRegisterUser.data.user));
 			  navigate("/");
 			}
 			else{
