@@ -109,7 +109,7 @@ export function Navbar({ isCollapsed, setIsCollapsed }) {
 										</Button>
 										<div className="flex flex-col gap-3">
 											<p className="text-sm font-medium leading-none">
-												{user?.fullname}
+												{user?.firstName+" "+user?.lastName}
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
 											Medibank Plus

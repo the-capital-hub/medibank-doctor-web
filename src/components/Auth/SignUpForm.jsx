@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Eye, EyeOff, Upload, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,8 @@ import { useMutation, gql } from "@apollo/client";
 import { Loader2 } from "lucide-react";
 const Register = gql`
   mutation Register(
-    $fullname: String!,
+    $firstName: String!,
+    $lastName: String!,
     $EmailID: String!,
     $mobile_num: String!,
     $city: String!,
@@ -33,7 +34,8 @@ const Register = gql`
     $licenseRegistrationNo: String
   ) {
     register(
-      fullname: $fullname
+      firstName:$firstName
+      lastName:$lastName
       EmailID: $EmailID
       mobile_num: $mobile_num
       city: $city
@@ -73,13 +75,14 @@ export function SignupForm() {
   // Initialize form data with all required fields
   const [formData, setFormData] = useState({
 	base64Data: "",
-    fullname: "",
+    firstName: "",
+    lastName: "",
     EmailID: "",
     mobile_num: "",
     city: "",
     state: "",
     date_of_birth: "",
-    sex: "male", // Default value
+    sex: "", // Default value
     Password: "",
     confirmPassword: "",
     userType: "doctor", // Default value
@@ -144,13 +147,22 @@ export function SignupForm() {
 
   // Handle text input changes
   const handleInputChange = (e) => {
-	const { id, value } = e.target;
-	setFormData((prev) => ({
-	  ...prev,
-	  [id]: value,
-	}));
+    const { id, value, name} = e.target;
+    
+    // Use functional update to ensure complete state update
+    setFormData(prevData => {
+      // Create a new object with all previous data
+      const updatedData = {
+        ...prevData,
+        [id]: value  // Explicitly set the new value
+      };
+      
+      return updatedData;
+    });
   };
-
+  useEffect(() => {
+    console.log("Current Form Data:", formData);
+  }, [formData]);
   // Handle select input changes
 //   const handleSelectChange = (id, value) => {
 //     setFormData((prev) => ({
@@ -206,7 +218,7 @@ export function SignupForm() {
 
     // Validate required fields
     const requiredFields = [
-      "fullname", "EmailID", "mobile_num", "city", "state",
+      "firstName", "lastName", "EmailID", "mobile_num", "city", "state",
       "date_of_birth", "sex", "Password", "userType", "licenseRegistrationNo"
     ];
     
@@ -229,7 +241,8 @@ export function SignupForm() {
 
     // Prepare mutation variables
     const variables = {
-      fullname: formData.fullname,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       EmailID: formData.EmailID,
       mobile_num: formData.mobile_num,
       city: formData.city,
@@ -280,9 +293,14 @@ export function SignupForm() {
 		</Label>
 		<Input
 		  id="qualifications"
+      
 		  placeholder="Enter Qualification"
 		  value={formData.qualifications}
-		  onChange={handleInputChange}
+      onChange={handleInputChange}
+      onInput={(e) => {
+        // Additional safeguard
+        e.target.value = e.target.value;
+      }}
 		  required
 		/>
 	  </div>
@@ -339,8 +357,8 @@ export function SignupForm() {
   );
   return (
     <>
-      <form onSubmit={handleSubmit} className="p-6 bg-white w-full h-dvh hide-scrollbar overflow-y-scroll">
-        <div className="space-y-6">
+      <form onSubmit={handleSubmit} className="p-6 bg-white w-full h-[100dvh] hide-scrollbar overflow-y-scroll">
+        <div className="space-y-5">
           <h2 className="text-2xl font-bold">Create Account</h2>
 
           <div className="space-y-4">
@@ -373,15 +391,23 @@ export function SignupForm() {
                     onChange={handleImageUpload}
                   />
                   <span className="sr-only">Add Photo</span>
-                  <Upload className="w-4 h-4" />
+                  <Upload className="w-5 h-5 absolute bottom-7 bg-slate-200 rounded-full right-1" />
                 </Label>
               </div>
-              <div className="space-y-2 w-full ml-5">
-                <Label htmlFor="fullname">Full Name*</Label>
+              <div className="space-y-2 w-full ml-5 relative bottom-3">
+                <Label htmlFor="fullname">First Name*</Label>
                 <Input
                   id="fullname"
-                  placeholder="Enter Full Name"
-                  value={formData.fullname}
+                  placeholder="Enter First Name"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  required
+                />
+                 <Label htmlFor="fullname">Last Name*</Label>
+                <Input
+                  id="fullname"
+                  placeholder="Enter Last Name"
+                  value={formData.lastName}
                   onChange={handleInputChange}
                   required
                 />

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { ArrowLeft, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { useSelector } from "react-redux";
+import DetailedConsultationDialog from "./Popups/DetailedConsultationDialog";
+
+
 
 const getRandomColorClass = () => {
 	const colors = [
@@ -29,6 +33,20 @@ const breadcrumbItems = [
 ];
 
 const Diagnostics = () => {
+	const userDetails = useSelector((state) => state.patientDetails?.data?.data?.userDetails)
+	const patientDetails = useSelector((state) => state.patientDetails?.data?.data?.appointmentDetails)
+	const [selectedAppointment, setSelectedAppointment] = useState(null);
+	const [showDetailedConsultation, setShowDetailedConsultation] = useState(false);
+
+	const appointments = patientDetails || []
+
+
+	const handleConsultationClick = (appointment) => {
+		setSelectedAppointment(appointment);
+		setShowDetailedConsultation(true);
+	};
+
+
 	return (
 		<div className="container mx-auto p-6">
 			<div className="mb-8">
@@ -46,7 +64,7 @@ const Diagnostics = () => {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-3">
 						<div>
 							<span className="font-medium">Patient Name: </span>
-							<span>User Name</span>
+							<span>{userDetails?.firstName + " " + userDetails?.lastName}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">MBID: </span>
@@ -54,11 +72,11 @@ const Diagnostics = () => {
 							</div> */}
 						<div>
 							<span className="font-medium">Date of Birth: </span>
-							<span>01-01-1989</span>
+							<span>{userDetails?.date_of_birth}</span>
 						</div>
 						<div>
 							<span className="font-medium">Gender: </span>
-							<span>Male</span>
+							<span>{userDetails?.sex}</span>
 						</div>
 						{/* <div>
 							<span className="font-medium">Address: </span>
@@ -69,11 +87,11 @@ const Diagnostics = () => {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-3 pb-3">
 						<div>
 							<span className="font-medium">MID: </span>
-							<span>M1234567890</span>
+							<span>{userDetails?.MBID}</span>
 						</div>
 						<div>
 							<span className="font-medium">Address: </span>
-							<span>Hyderabad, Telangana</span>
+							<span>{userDetails?.address || "N/A"}</span>
 						</div>
 					</div>
 					<hr />
@@ -101,27 +119,28 @@ const Diagnostics = () => {
 					<hr />
 					{/* <div className="grid grid-cols-5 gap-5 py-4 overflow-y-auto max-h-[330px] hide-scrollbar"> */}
 					<div className="grid grid-cols-5 gap-5 py-4">
-						{Array.from({ length: 20 }, (_, index) => ({
-							complaint: `Complaint ${index + 1}`, // Example complaint text
-							date: `Date ${index + 1}`, // Example date
-							doctor: `Doctor ${index + 1}`, // Example doctor name
-							color: getRandomColorClass(),
-						})).map((item, index) => (
-							<div
-								key={index}
-								className={`rounded-lg p-4 ${item.color} cursor-pointer max-h-fit`}
-								// onClick={() => handleConsultationClick(item)}
-							>
-								<div className="mb-2">
-									<div className="text-sm text-gray-600">Chief Complaint:</div>
-									<div className="font-medium">{item.complaint}</div>
+						{appointments.length > 0 ? (
+							appointments.map((appointment, index) => (
+								<div
+									key={index}
+									className={`rounded-lg p-4 ${getRandomColorClass()} cursor-pointer max-h-fit`}
+									onClick={() => handleConsultationClick(appointment)}
+								>
+									<div className="mb-2">
+										<div className="text-sm text-gray-600">Chief Complaint:</div>
+										<div className="font-medium">{appointment.chiefComplaint || "No complaint recorded"}</div>
+									</div>
+									<div className="flex justify-between text-[0.8rem] text-gray-600">
+										<span>{appointment.selectDate || "N/A"}</span> &nbsp;
+										<span>{appointment.doctorName || "N/A"}</span>
+									</div>
 								</div>
-								<div className="flex justify-between text-sm text-gray-600">
-									<span>{item.date}</span>
-									<span>{item.doctor}</span>
-								</div>
+							))
+						) : (
+							<div className="col-span-5 text-center py-8 text-gray-500">
+								No appointment records found
 							</div>
-						))}
+						)}
 					</div>
 
 					<div className="flex justify-center p-5">
@@ -135,6 +154,13 @@ const Diagnostics = () => {
 					</div>
 				</Card>
 			</div>
+			{showDetailedConsultation && selectedAppointment && (
+				<DetailedConsultationDialog
+					open={showDetailedConsultation}
+					onOpenChange={setShowDetailedConsultation}
+					appointment={selectedAppointment}
+				/>
+			)}
 		</div>
 	);
 };
