@@ -16,8 +16,8 @@ import {  setUser } from "@/Redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 const Login = gql`
-	mutation Login($EmailOrMobile: String!, $Password: String!) {
-		login(EmailOrMobile: $EmailOrMobile, Password: $Password) {
+	mutation Login($EmailOrMobile: String!, $Password: String!, $UserType: String!) {
+		login(EmailOrMobile: $EmailOrMobile, Password: $Password, UserType: $UserType) {
 			status
 			message
 			data
@@ -33,7 +33,9 @@ export function LoginForm() {
 	const [formData, setFormData] = useState({
 		EmailOrMobile: "",
 		Password: "",
+		UserType: "Doctor"
 	});
+	console.log(formData)
 	const location = useLocation();
 	const isAdmin = location.pathname.includes("/admin");
 	const userType = isAdmin ? "Admin" : "Doctor";
@@ -77,6 +79,7 @@ export function LoginForm() {
 		const variables = {
 			EmailOrMobile: formData.EmailOrMobile,
 			Password: formData.Password,
+			UserType: formData.UserType
 		}
 		
 		 await login({ variables });

@@ -22,7 +22,7 @@ const CREATE_DIAGNOSIS = gql`
     $doctorNotes: String!
   ) {
     createAppointmentByDoctor(
-      MBID: $MBID,
+      mbid: $mbid,
       selectDate: $selectDate,
       chiefComplaint: $chiefComplaint,
       remarks: $remarks,
@@ -43,6 +43,7 @@ const CREATE_DIAGNOSIS = gql`
 export default function NewDiagnosisPopup({ open, onOpenChange }) {
     // Get MBID from Redux store
     const userDetails = useSelector(state => state.patientDetails?.data?.data?.userDetails || {});
+    console.log(userDetails)
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
     useEffect(() => {
         const timer = setInterval(() => {
@@ -57,7 +58,7 @@ export default function NewDiagnosisPopup({ open, onOpenChange }) {
         .replace(/\//g, '-'); // Replaces slashes with dashes
     
     const [formData, setFormData] = useState({
-        MBID:userDetails?.MBID,
+        mbid: String(userDetails?.MBID),
         chiefComplaint: "",
         clinicalNotes: "",
         doctorNotes: "",
@@ -216,7 +217,7 @@ export default function NewDiagnosisPopup({ open, onOpenChange }) {
             
             const result = await createDiagnosis({
                 variables: {
-                    MBID: MBID,
+                    mbid: MBID,
                     selectDate: formData.selectDate,
                     chiefComplaint: formData.complaint || "",
                     remarks: remarks,
